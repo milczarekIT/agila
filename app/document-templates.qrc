@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/document-templates">
+        <file alias="Invoice-template.htm">Resources/templates/InvoiceTemplate/Invoice.htm</file>
+        <file alias="FK-template.htm">Resources/templates/FK/fk.htm</file>
+        <file alias="FM-template.htm">Resources/templates/FM/fm.htm</file>
+        <file alias="FM_ZAL-template.htm">Resources/templates/FM/fm_zal.htm</file>
+        <file alias="ZAL-template.htm">Resources/templates/KZ/kz.htm</file>
+        <file alias="NK-template.htm">Resources/templates/NK/nk.htm</file>
+        <file alias="PA-template.htm">Resources/templates/PA/pa.htm</file>
+        <file alias="PZ-template.htm">Resources/templates/PZ/pz.htm</file>
+        <file alias="Warehouse-template.htm">Resources/templates/StorageTemplate/StorageTemplate.htm</file>
+        <file alias="WZ-template.htm">Resources/templates/WZ/wz.htm</file>
+        <file alias="FZK-template.htm">Resources/templates/FZK/fzk.htm</file>
+        <file alias="PurchaseInvoice-template.htm">Resources/templates/PurchaseInvoice/PurchaseInvoice.htm</file>
+        <file alias="Order-template.htm">Resources/templates/Order/Order.htm</file>
+    </qresource>
+    <qresource prefix="/document-styles">
+        <file alias="style.css">Resources/templates/general.css</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+
+sudo -u postgres psql < ../dbs/init_psql2.sql > /dev/null
+
+
+echo 'Mimo bledu ponizej, zaczekajcie do konca, trwa ladowanie struktury do bazy'
+echo "Uzbroicie sie w cierpliwosc, kody pocztowe sa ladowane!"
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+echo "@ moze to potrwac do 5 min ! @"
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+sudo -u postgres psql -d pigstore < ../dbs/db_all.sql > /dev/null
+echo "Baza załadowana"
+
+
+
+
+

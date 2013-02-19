@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo 'Czy chcesz kontynuować? Aktualizacja bazy, żadne dane nie zostaną nadpisane [T/N]'
+
+read answer
+
+if [ "$answer" = "t" ] || [  "$answer" = "T" ];
+then
+	echo "Kontynuuj..."
+	sudo -u postgres psql -d pigstore < ../dbs/db_update31.sql
+	echo "Załadowano db_update31.sql"
+	
+	echo "Wszystko ok"
+else
+	echo "Nie wykonano update'u bazy!"
+fi
+

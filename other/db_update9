@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo 'Czy chcesz kontynuować? Wszystkie dane przykładowe zostaną skasowane, a następnie załadowane nowe [T/N]'
+
+read answer
+
+if [ "$answer" = "t" ] || [  "$answer" = "T" ];
+then
+	echo "Kontynuuj..."
+	mysql --user=bbraces --password=bb123456 --default_character_set utf8 < ../dbs/db_all_conf.sql
+	echo "Załadowano db_all_conf.sql"
+	
+	mysql --user=bbraces --password=bb123456 --default_character_set utf8 < ../dbs/db_all_magazyn1.sql
+        echo "Załadowano db_all_magazyn1.sql"
+
+ 	mysql --user=bbraces --password=bb123456 --default_character_set utf8 < ../dbs/db_all_magazyn2.sql
+        echo "Załadowano db_all_magazyn2.sql"
+
+	echo "Wszystko ok"
+else
+	echo "Nie wykonano update'u bazy!"
+fi

@@ -1,0 +1,81 @@
+body {
+font-family: Arial Narrow, Arial, Verdana, sans-serif;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.nl {
+  clear: both;
+}
+.docType
+{
+text-align:center;
+font-size:1.875em;
+}
+.docTypeComment
+{
+text-align:center;
+}
+.ex
+{
+	width:300px;
+}
+.contractors
+{
+	width:400px;
+
+}
+table
+{
+border-collapse:collapse;
+}
+th
+{
+background-color: #dcdcdc;
+color:black;
+border-top: 1px solid #000000;
+}
+.overline_grey
+{
+	background-color: #dcdcdc;
+	color:black;
+	text-align: center;
+	border-top: 1pt solid #000000;
+}
+#goods_table td, #tax_table td, #goods_table th, #tax_table th, .goods_table th, .goods_table td
+{
+	font-size: 13px;
+	padding: 0 2px 0 2px;
+}
+#goods_table td.price_net, #goods_table td.net_val, #goods_table td.vat_val, #goods_table td.brut_val, #goods_table td.discount_val, #goods_table td.quantity, .goods_table td.price_net, .goods_table td.net_val, .goods_table td.vat_val, .goods_table td.brut_val, .goods_table td.discount_val, .goods_table td.quantity, #tax_table td.net_val, #tax_table td.vat_val, #tax_table td.brut_val
+{
+	text-align:right;
+}
+#goods_table td.tax_short, #goods_table td.discount, #goods_table td.count, .goods_table td.tax_short, .goods_table td.discount, .goods_table td.count
+{
+	text-align:center;
+}
+/*
+count goods_name pkwiu quantity discount price_net discount_val tax_short net_val vat_val brut_val
+*/
+#issuer_receiver .name
+{
+	padding-top: 10px;
+	vertical-align: top;
+}
+.logo
+{
+	border: none;
+	min-width: 100px;
+	min-height: 60px;	
+	max-width: 300px;
+	max-height: 200px;
+}
+/** zeby nie łamało strony w środku elementu */
+div.avoid_breaking_page
+{
+	page-break-inside: avoid;
+}

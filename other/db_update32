@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo 'Czy chcesz kontynuować? Aktualizacja bazy, żadne dane nie zostaną nadpisane [T/N]'
+
+read answer
+
+if [ "$answer" = "t" ] || [  "$answer" = "T" ];
+then
+	sudo -u postgres psql < ../dbs/pigstore_to_agila.sql
+	echo 'Zmieniono nazwę bazy z pigstore na agila'
+	
+	echo "jeszcze update 32... poczekaj..."
+	sudo -u postgres psql -d agila < ../dbs/db_update32.sql
+	echo "Załadowano db_update32.sql"
+	
+	echo "Wszystko ok"
+else
+	echo "Nie wykonano update'u bazy!"
+fi
+

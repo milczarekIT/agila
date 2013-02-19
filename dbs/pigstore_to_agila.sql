@@ -1,0 +1,6 @@
+ALTER DATABASE pigstore RENAME TO agila;
+
+DROP DATABASE IF EXISTS pigstore_conf;
+DROP DATABASE IF EXISTS pigstore_magazyn2;
+DROP DATABASE IF EXISTS pi_test;
+ 

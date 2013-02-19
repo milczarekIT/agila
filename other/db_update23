@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo 'Czy chcesz kontynuować? Aktualizacja bazy, żadne dane nie zostaną nadpisane [T/N]'
+
+read answer
+
+if [ "$answer" = "t" ] || [  "$answer" = "T" ];
+then
+	echo "Kontynuuj..."
+	mysql --user=bbraces --password=bb123456 --default_character_set utf8 < ../dbs/db_update23.sql
+	echo "Załadowano db_update23.sql"
+	
+	echo "Wszystko ok"
+else
+	echo "Nie wykonano update'u bazy!"
+fi

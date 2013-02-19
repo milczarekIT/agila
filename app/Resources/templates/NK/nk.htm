@@ -1,0 +1,92 @@
+<head>
+<link rel="stylesheet" href="../general.css" type="text/css">
+<link rel="stylesheet" href="qrc:///document-styles/style.css" type="text/css">
+</head>
+
+<div class="nl">
+<img class="logo" src="%logoPath%" />
+<div class="docType">%copyORoriginal</div>
+</div>
+
+<div class="left"><div class="ex">%my_companyname% %my_address%, %my_postcode% %my_city% %my_phone% %my_phone1% %my_phone2% %my_nip% %my_bankname% %my_bankaccount% Dodatkowe: %additional%</div></div>
+
+<div class="right"><div class="ex">
+<table WIDTH=100%><tbody>
+<tr class="overline_grey"><th>Miejsce Wystawienia</th></tr>
+<tr><td align="center">%issue_place%</td>
+<tr class="overline_grey"><th>Data wystawienia</th>
+<tr><td align="center">%issue_date%</td></tr>
+</tbody></table></div>
+</div></div>
+<div class="nl"></br></br></div>
+
+<div class="left"><div class="contractors">
+<table WIDTH=100%><tbody>
+<tr class="overline_grey"><th>Wystawca noty</th></tr>
+<tr><td>%my_companyname%<br>%my_address%<br>%my_postcode% %my_city% <br>NIP: %my_nip%</td>
+</tbody></table></div>
+</div>
+
+<div class="right"><div class="contractors">
+<table WIDTH = 100%><tbody>
+<tr class="overline_grey"><th>Adresat noty</th></tr>
+<tr><td>%buyer_companyname%<br>%buyer_address%<br>%buyer_postcode% %buyer_city% <br>NIP: %buyer_nip%</td>
+</tbody></table></div></div>
+
+<div class="nl">
+<div class="docType"></br>Nota korygująca %document_number%
+</br></br></div>
+</div>
+
+<div class="nl">
+<table WIDTH=100% id="nk_table" BORDER = 1><tbody>
+<tr>
+<th align="center">Nr faktury vat</th>
+<th align="center">Data sprzedaży</th>
+<th align="center">Data wystawienia faktury</th>
+</tr>
+<tr><td align="center">%invoice_symbol%</td>
+    <td align="center">%invoice_sale_date%</td>
+    <td align="center">%invoice_issue_date%</td></tr>
+</tbody></table>
+</br>
+</div>
+<div class="nl"></br></div>
+
+<div class="avoid_breaking_page">
+	<div class="left"><div class="contractors">
+	<table WIDTH=100% BORDER=1><tbody>
+	<tr><th>Treść korygowana</th></tr>
+	<tr><td height="200px">%corrected_content%</td>
+	</tbody></table></div>
+	</div>
+
+
+
+	<div class="right"><div class="contractors">
+	<table WIDTH = 100% BORDER=1 ><tbody>
+	<tr><th>Treść prawidłowa</th></tr>
+	<tr><td height="200px">%correct_content%</td>
+	</tbody></table></div></div>
+	<div class="nl"><br><br></div>
+</div>
+
+<div class="avoid_breaking_page">
+	<div class="left"><div class="contractors">
+	<table WIDTH=100% border="1" id="issuer_receiver"><tbody>
+	<tr><th>Osoba uprawniona do wystawienia noty:</th></tr>
+	<tr><td height="100px" align="center" class="name">%issue_name%</td>
+	</tbody></table></div>
+	</div>
+
+	<div class="right"><div class="contractors">
+	<table WIDTH=100% border="1" id="issuer_receiver"><tbody>
+	<tr><th>Zgadzam się z treścią noty:</th></tr>
+	<tr><td height="100px" align="center" class="name">%receiver_name%</td>
+	</tbody></table></div></div>
+	<div class="nl"><br><br></div>
+	<div class="left">%signature%</div>
+</div>
+
+
+</body>

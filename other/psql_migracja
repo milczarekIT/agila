@@ -1,0 +1,25 @@
+#!/bin/bash
+
+sudo apt-get install postgresql
+sudo apt-get install phppgadmin
+sudo apt-get install pgadmin3
+sudo apt-get install libqt4-sql-psql
+
+sudo -u postgres psql < ../dbs/init_psql.sql > /dev/null
+echo 'Inicjacja uzytkowników i bazy zakonczona'
+
+
+echo 'Mimo bledu ponizej, zaczekajcie do konca, trwa ladowanie struktury do bazy'
+sudo -u postgres psql -d pigstore < ../dbs/db_all_magazyn1.sql > /dev/null
+echo "Magazyn glowny zaladowany"
+echo ""
+echo ""
+echo "Uzbroicie sie w cierpliwosc, kody pocztowe sa ladowane!"
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+echo "@ moze to potrwac do 5 min ! @"
+echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+echo ""
+sudo -u postgres psql -d pigstore_conf < ../dbs/db_all_conf.sql > /dev/null
+
+sudo chmod +x DbConfPostgre
+./DbConfPostgre

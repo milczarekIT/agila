@@ -1,0 +1,335 @@
+<head>
+<link rel="stylesheet" href="../general.css" type="text/css">
+<link rel="stylesheet" href="qrc:///document-styles/style.css" type="text/css">
+
+<script type="text/javascript">
+
+var count = 1;
+var taxtable = new Array();
+var discount_value_after;
+var discount_value_before;
+function addDocPosition (doc)
+{
+var tblBody = document.getElementById("table_before");
+var tblBody_after = document.getElementById("table_after");
+var row = document.createElement("tr");
+var row_after = document.createElement("tr");
+var pricenet = 0;
+var tax_before = 0;
+var netval_before = 0;
+var tax_after = 0;
+var netval_after = 0;
+var discount_after = 0;
+var discount_before = 0;
+var gross_value_before = 0;
+var gross_value_after = 0;
+
+var parser=new DOMParser();
+var xmlDoc=parser.parseFromString(doc,'text/xml');
+var before=xmlDoc.getElementsByTagName("before");
+var after=xmlDoc.getElementsByTagName("after");
+
+var lp;
+
+	function addBefore (data, className)
+	{
+		lp = document.createElement("td");
+       		lp.appendChild(document.createTextNode(data));
+		lp.setAttribute('class', className);
+		row.appendChild(lp);
+	}
+	function addAfter (data, className)
+	{
+		lp = document.createElement("td");
+       		lp.appendChild(document.createTextNode(data));
+		lp.setAttribute('class', className);
+		row_after.appendChild(lp);
+	}
+if (before.length>0)
+{	
+	
+
+	addBefore(count, 'count');
+	addBefore(before[0].getElementsByTagName("good_name")[0].childNodes[0].nodeValue, 'good_name');
+	var pkwiu_b = before[0].getElementsByTagName("good_pkwiu")[0].childNodes[0].nodeValue;
+	if (pkwiu_b == "0")
+	{	
+	addBefore(" ", 'pkwiu');
+	}
+	else	
+	{
+	addBefore(pkwiu_b, 'pkwiu');
+	}
+	addBefore(before[0].getElementsByTagName("good_quantity")[0].childNodes[0].nodeValue, 'quantity');
+	addBefore(before[0].getElementsByTagName("good_unit")[0].childNodes[0].nodeValue, 'unit');
+	addBefore(before[0].getElementsByTagName("good_discount")[0].childNodes[0].nodeValue.toString().replace(".",","), 'discount');
+
+	pricenet = before[0].getElementsByTagName("good_pricenet")[0].childNodes[0].nodeValue*1;
+	tax_before = before[0].getElementsByTagName("good_tax")[0].childNodes[0].nodeValue;
+	var tax_short_b = before[0].getElementsByTagName("tax_short")[0].childNodes[0].nodeValue;	
+	var vatval_before = before[0].getElementsByTagName("vatval")[0].childNodes[0].nodeValue*1;
+	netval_before = before[0].getElementsByTagName("netval")[0].childNodes[0].nodeValue*1;
+	discount_before = before[0].getElementsByTagName("good_discount")[0].childNodes[0].nodeValue;
+	var pricegross = before[0].getElementsByTagName("good_pricegross")[0].childNodes[0].nodeValue;
+	gross_value_before = before[0].getElementsByTagName("brutval")[0].childNodes[0].nodeValue*1;
+	discount_value_before = before[0].getElementsByTagName("discountval")[0].childNodes[0].nodeValue*1;
+	
+	addBefore(pricenet.toFixed(2).toString().replace(".",","), 'price_net');
+        addBefore( discount_value_before.toFixed(2).toString().replace(".",","), 'discount_val');
+	addBefore(tax_short_b, 'tax_short');
+	addBefore( netval_before.toFixed(2).toString().replace(".",","), 'net_val');
+	addBefore ( vatval_before.toFixed(2).toString().replace(".",","), 'vat_val');
+	addBefore ( gross_value_before.toFixed(2).toString().replace(".",","), 'brut_val');
+
+	if (taxtable[tax_before]==null)
+		taxtable[tax_before] = Array (before[0].getElementsByTagName("good_taxname")[0].childNodes[0].nodeValue, netval_before,0,gross_value_before,0,vatval_before,0);
+	else
+		{
+		taxtable[tax_before][1]=taxtable[tax_before][1]+netval_before;
+		taxtable[tax_before][3]=taxtable[tax_before][3]+gross_value_before;
+		taxtable[tax_before][5]=taxtable[tax_before][5]+vatval_before;
+		}
+	tblBody.appendChild(row);
+}
+if(after.length>0)
+{
+
+	addAfter(count, 'count');
+	addAfter(after[0].getElementsByTagName("good_name")[0].childNodes[0].nodeValue, 'good_name');
+	var pkwiu_a = after[0].getElementsByTagName("good_pkwiu")[0].childNodes[0].nodeValue;
+	if (pkwiu_a == "0")
+	{	
+	addAfter(" ", 'pkwiu');
+	}
+	else	
+	{
+	addAfter(pkwiu_a, 'pkwiu');
+	}
+	addAfter(after[0].getElementsByTagName("good_quantity")[0].childNodes[0].nodeValue, 'quantity');
+	addAfter(after[0].getElementsByTagName("good_unit")[0].childNodes[0].nodeValue, 'good_unit');
+	addAfter(after[0].getElementsByTagName("good_discount")[0].childNodes[0].nodeValue.toString().replace(".",","), 'discount');
+
+	pricenet = after[0].getElementsByTagName("good_pricenet")[0].childNodes[0].nodeValue*1;
+	tax_after = after[0].getElementsByTagName("good_tax")[0].childNodes[0].nodeValue;
+	var tax_short_a = after[0].getElementsByTagName("tax_short")[0].childNodes[0].nodeValue;
+	var vatval_after = after[0].getElementsByTagName("vatval")[0].childNodes[0].nodeValue*1;
+	netval_after = after[0].getElementsByTagName("netval")[0].childNodes[0].nodeValue*1;
+	discount_after = after[0].getElementsByTagName("good_discount")[0].childNodes[0].nodeValue;
+	var pricegross = after[0].getElementsByTagName("good_pricegross")[0].childNodes[0].nodeValue;
+	gross_value_after = after[0].getElementsByTagName("brutval")[0].childNodes[0].nodeValue*1;
+	discount_value_after = after[0].getElementsByTagName("discountval")[0].childNodes[0].nodeValue*1;
+	addAfter(pricenet.toFixed(2).toString().replace(".",","), 'price_net');
+	addAfter( discount_value_after.toFixed(2).toString().replace(".",","), 'discount_val')
+	addAfter(tax_short_a, 'tax_short');
+	addAfter( netval_after.toFixed(2).toString().replace(".",","), 'net_val');
+	addAfter ( (vatval_after).toFixed(2).toString().replace(".",","), 'vat_val');
+	addAfter ( gross_value_after.toFixed(2).toString().replace(".",","), 'brut_val');
+	tblBody_after.appendChild(row_after)
+}
+count++;
+
+	if (taxtable[tax_after]==null)
+		taxtable[tax_after] = Array (after[0].getElementsByTagName("good_taxname")[0].childNodes[0].nodeValue, 0,netval_after,0,gross_value_after,0,vataval_after);
+	else
+		{
+		taxtable[tax_after][2]=taxtable[tax_after][2]+netval_after;
+		taxtable[tax_after][4]=taxtable[tax_after][4]+gross_value_after;
+		taxtable[tax_after][6]=taxtable[tax_after][6]+vatval_after;
+		}
+
+
+	
+
+}
+function finalize(paid) 
+{
+var tblBody = document.getElementById("tax_table");
+var netto = 0;
+var vat = 0;
+var brutto= 0;
+var nettoKor = 0;
+var vatKor = 0;
+var bruttoKor = 0;
+var nettoPoKor = 0;
+var vatPoKor = 0;
+var bruttoPoKor = 0;
+
+for (n in taxtable)
+{
+	var total=0;
+	var row = document.createElement("tr");
+	var cell = document.createElement("td");
+	cell.appendChild(document.createTextNode(taxtable[n][0])); 
+	cell.appendChild(document.createElement("br"));
+	cell.appendChild(document.createTextNode("Korekta:"));
+	cell.appendChild(document.createElement("br")); 
+	cell.appendChild(document.createTextNode("Po korekcie:"));
+	row.appendChild(cell);
+
+	cell = document.createElement("td");
+	cell.appendChild(document.createTextNode(taxtable[n][1].toFixed(2).toString().replace(".",","))); 
+	cell.appendChild(document.createElement("br")); 
+	cell.appendChild(document.createTextNode( (taxtable[n][2] - taxtable[n][1]).toFixed(2).toString().replace(".",",") ));
+ 	cell.appendChild(document.createElement("br")); 
+	cell.appendChild(document.createTextNode(taxtable[n][2].toFixed(2).toString().replace(".",",")));
+	cell.setAttribute('class', 'net_val');
+	row.appendChild(cell);
+
+	cell = document.createElement("td");
+	cell.appendChild(document.createTextNode( (taxtable[n][5] ).toFixed(2).toString().replace(".",",") ));
+	cell.appendChild(document.createElement("br"));
+	cell.appendChild(document.createTextNode( (taxtable[n][6]-taxtable[n][5]).toFixed(2).toString().replace(".",",")  ));
+	cell.appendChild(document.createElement("br")); 
+	cell.appendChild(document.createTextNode( (taxtable[n][6]).toFixed(2).toString().replace(".",",") ));
+	cell.setAttribute('class', 'vat_val');
+	row.appendChild(cell);
+
+	cell = document.createElement("td");
+	cell.appendChild(document.createTextNode( (taxtable[n][3]).toFixed(2).toString().replace(".",",") ));
+	cell.appendChild(document.createElement("br"));
+	cell.appendChild(document.createTextNode( (taxtable[n][4] - taxtable[n][3]).toFixed(2).toString().replace(".",",")  ));
+	cell.appendChild(document.createElement("br"));
+        cell.appendChild(document.createTextNode( (taxtable[n][4] ).toFixed(2).toString().replace(".",",") ));
+	cell.setAttribute('class', 'brut_val');
+	row.appendChild(cell);
+	tblBody.appendChild(row);
+	netto +=taxtable[n][1];
+ 	vat += taxtable[n][2]-taxtable[n][1];
+	brutto +=taxtable[n][2];
+	nettoKor +=taxtable[n][5];
+ 	vatKor += taxtable[n][6]-taxtable[n][5];
+	bruttoKor +=taxtable[n][6];
+	nettoPoKor +=taxtable[n][3];
+ 	vatPoKor += taxtable[n][4]-taxtable[n][3];
+	bruttoPoKor +=taxtable[n][4];
+}
+
+	var row = document.createElement("tr");
+	var cell = document.createElement("td");
+	cell.appendChild(document.createTextNode("Razem:"));
+	cell.appendChild(document.createElement("br"));
+	cell.appendChild(document.createTextNode("Razem korekta:"));
+	cell.appendChild(document.createElement("br"));
+	cell.appendChild(document.createTextNode("Razem po korekcie:"));
+	row.appendChild(cell);
+	cell = document.createElement("td");
+	cell.appendChild(document.createTextNode(netto.toFixed(2).toString().replace(".",",")));
+	cell.appendChild(document.createElement("br"));
+	cell.appendChild(document.createTextNode( vat.toFixed(2).toString().replace(".",",") ));
+	cell.appendChild(document.createElement("br"));
+	cell.appendChild(document.createTextNode(  brutto.toFixed(2).toString().replace(".",",")   ));
+	cell.setAttribute('class', 'net_val');
+	row.appendChild(cell);
+	cell = document.createElement("td");
+	cell.appendChild(document.createTextNode(nettoKor.toFixed(2).toString().replace(".",",")));
+	cell.appendChild(document.createElement("br"));
+	cell.appendChild(document.createTextNode( vatKor.toFixed(2).toString().replace(".",",") ));
+	cell.appendChild(document.createElement("br"));
+	cell.appendChild(document.createTextNode(  bruttoKor.toFixed(2).toString().replace(".",",")   ));
+	cell.setAttribute('class', 'vat_val');
+	row.appendChild(cell);
+	cell = document.createElement("td");
+	cell.appendChild(document.createTextNode(nettoPoKor.toFixed(2).toString().replace(".",",")));
+	cell.appendChild(document.createElement("br"));
+	cell.appendChild(document.createTextNode( vatPoKor.toFixed(2).toString().replace(".",",") ));
+	cell.appendChild(document.createElement("br"));
+	cell.appendChild(document.createTextNode(  bruttoPoKor.toFixed(2).toString().replace(".",",")   ));
+	cell.setAttribute('class', 'brut_val');
+	row.appendChild(cell);
+	tblBody.appendChild(row);
+}
+
+</script>
+</head>
+
+<div class="nl">
+<img class="logo" src="%logoPath%" />
+<div class="docType">%copyORoriginal</div>
+</div>
+
+<div class="left"><div class="ex">%my_companyname% %my_address%, %my_postcode% %my_city% %my_phone% %my_phone1% %my_phone2% %my_nip% %my_bankname% %my_bankaccount% Dodatkowe: %additional%</div></div>
+
+<div class="right"><div class="ex">
+<table WIDTH=100%><tbody>
+<tr class="overline_grey"><th>Miejsce Wystawienia</th></tr>
+<tr><td align="center">%issue_place%</td>
+<tr class="overline_grey"><th>Data zakupu</th>
+<tr><td align="center">%sale_date%</td></tr>
+<tr class="overline_grey"><th>Data wystawienia</th>
+<tr><td align="center">%issue_date%</td></tr>
+</tbody></table></div>
+</div></div>
+<div class="nl"></br></br></div>
+
+<div class="left"><div class="contractors">
+<table WIDTH=100%><tbody>
+<tr class="overline_grey"><th>Sprzedawca</th></tr>
+<tr><td>%my_companyname%<br>%my_address%<br>%my_postcode% %my_city% <br>%my_nip%</td>
+</tbody></table></div>
+</div>
+
+<div class="right"><div class="contractors">
+<table WIDTH = 100%><tbody>
+<tr class="overline_grey"><th>Nabywca</th></tr>
+<tr><td>%buyer_companyname%<br>%buyer_address%<br>%buyer_postcode% %buyer_city% <br>%buyer_nip%</td>
+</tbody></table></div></div>
+
+<div class="nl">
+<div class="docType"></br>Faktura korygująca zakupu %document_number%<br></div><center>%docTypeComment%</center>
+</div>
+
+
+<div class="nl">
+
+	<div style="text-align:center; margin-top: 15px;">Dane z faktury której dotyczy korekta:</div>
+	<table WIDTH=100% BORDER = 1 id="table_before" class="goods_table"><tbody>
+	<tr><th>Lp.</th><th>Nazwa</th><th>PKWiU</th><th>Ilość</th><th>j.m.</th><th>Rabat[%]</th><th>Cena<br/> netto</th><th>Rabat</th><th>Stawka<br/> VAT</th><th>Wartość<br/> netto</th><th>Kwota<br/> VAT</th><th>Wartość<br/> brutto</th></tr>
+	</tbody></table>
+
+
+	<div style="text-align:center; margin-top: 15px;">Po korekcie:</div>
+	<table WIDTH=100% BORDER = 1 id="table_after" class="goods_table"><tbody>
+	<tr><th>Lp.</th><th>Nazwa</th><th>PKWiU</th><th>Ilość</th><th>j.m.</th><th>Rabat[%]</th><th>Cena<br/>%headPrice%</th><th>Rabat</th><th>Stawka<br/> VAT</th><th>Wartość<br/> netto</th><th>Kwota<br/> VAT</th><th>Wartość<br/> brutto</th></tr>
+	</tbody></table>
+</div>
+
+
+<div class="avoid_breaking_page">
+	<div class="right"><br>
+	<table WIDTH=500px BORDER = 1 id="tax_table"><tbody>
+	<tr><th>Według stawki VAT</th><th>Wartość netto</th><th>Kwota VAT</th><th>Wartość brutto</th></tr>
+	</tbody></table>
+	</div>
+	<div class="nl"></br></div>
+
+	<div class="right">
+	<table WIDTH=450px><tbody>
+	<tr style="border-top: 1px solid #000"><th><h2>Razem: %summary_value%</h2></th></tr>
+	<tr><td>%words% %summary_words%</td></tr>
+	</tbody></table>
+	</div>
+</div>
+<div class="nl"></br></div>
+
+<div class="avoid_breaking_page">
+	<div class="left nl">Płatność: %method_of_payment%</div>
+	<div class="left nl">Termin płatności: %payment_date%</div>
+	<div class="nl"></br></div>
+
+	<div class="left"><div class="contractors avoid_breaking_page">
+	<table WIDTH=100% border="1" id="issuer_receiver"><tbody>
+	<tr><th>Wystawił(a)</th></tr>
+	<tr><td height="100px" align="center" class="name">%issue_name%</td>
+	</tbody></table></div>
+	</div>
+
+
+	<div class="right" ><div class="contractors avoid_breaking_page">
+	<table WIDTH = 100% border="1" id="issuer_receiver"><tbody>
+	<tr><th>Odebrał(a)</th></tr>
+	<tr><td height="100px" align="center" class="name">%receiver_name%</td>
+	</tbody></table></div></div>
+	<div class="nl"><br><br></div>
+	<div class="left">%signature%</div>
+</div>
+

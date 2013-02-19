@@ -1,0 +1,128 @@
+<head>
+<link rel="stylesheet" href="../general.css" type="text/css">
+<link rel="stylesheet" href="qrc:///document-styles/style.css" type="text/css">
+<script type="text/javascript">
+
+var count = 1;
+var taxtable = new Array();
+function addDocPosition (doc)
+{
+var tblBody = document.getElementById("goods_table");
+var row = document.createElement("tr");
+
+var parser=new DOMParser();
+var xmlDoc=parser.parseFromString(doc,'text/xml');
+
+	
+	function addItem (data, className)
+	{
+		lp = document.createElement("td");
+       		lp.appendChild(document.createTextNode(data));
+		lp.setAttribute('class', className);
+		row.appendChild(lp);
+	}
+	var tax = xmlDoc.getElementsByTagName("good_tax")[0].childNodes[0].nodeValue;
+	var discount = xmlDoc.getElementsByTagName("good_discount")[0].childNodes[0].nodeValue;
+	var quantity = xmlDoc.getElementsByTagName("good_quantity")[0].childNodes[0].nodeValue;
+	var pricenet = xmlDoc.getElementsByTagName("good_pricenet")[0].childNodes[0].nodeValue;
+	var netval = xmlDoc.getElementsByTagName("netval")[0].childNodes[0].nodeValue*1;
+	var discount_val =xmlDoc.getElementsByTagName("discountval")[0].childNodes[0].nodeValue*1;
+	
+	addItem(count, 'count');
+	addItem(xmlDoc.getElementsByTagName("good_name")[0].childNodes[0].nodeValue, 'good_name');
+	addItem(xmlDoc.getElementsByTagName("good_unit")[0].childNodes[0].nodeValue, 'good_unit');
+	addItem(discount.toString().replace(".",","), 'discount');
+	addItem(quantity.toString().replace(".",","), 'quantity');
+	addItem(discount_val.toFixed(2).toString().replace(".",","), 'discount_val');
+	addItem(netval.toFixed(2).toString().replace(".",","), 'net_val');
+
+tblBody.appendChild(row);
+
+count++;
+}
+
+</script>
+</head>
+
+<div class="nl">
+<img class="logo" src="%logoPath%" />
+<div class="docType">%copyORoriginal</div>
+</div>
+
+<div class="left"><div class="ex">%my_companyname% %my_address%, %my_postcode% %my_city% %my_phone% %my_phone1% %my_phone2% %my_nip% %my_bankname% %my_bankaccount% Dodatkowe: %additional%</div></div>
+
+
+<div class="right"><div class="ex">
+<table WIDTH=100%><tbody>
+<tr class="overline_grey"><th>Miejsce Wystawienia</th></tr>
+<tr><td align="center">%issue_place%</td></tr>
+<tr class="overline_grey"><th>Data sprzedaży</th></tr>
+<tr><td align="center">%sale_date%</td></tr>
+<tr class="overline_grey"><th>Data wystawienia</th></tr>
+<tr><td align="center">%issue_date%</td></tr>
+</tbody></table></div>
+</div></div>
+<div class="nl"></br></br></div>
+
+<div class="left"><div class="contractors">
+<table WIDTH=100%><tbody>
+<tr class="overline_grey"><th>Sprzedawca</th></tr>
+<tr><td>%my_companyname%<br>%my_address%<br>%my_postcode% %my_city% <br>%my_nip%</td>
+</tbody></table></div>
+</div>
+
+<div class="right"><div class="contractors">
+<table WIDTH = 100%><tbody>
+<tr class="overline_grey"><th>Nabywca</th></tr>
+<tr><td>%buyer_companyname%<br>%buyer_address%<br>%buyer_postcode% %buyer_city% <br>%buyer_nip%</td>
+</tbody></table></div></div>
+
+<div class="nl">
+<div class="docType"></br>Faktura VAT Marża %document_number%
+</br></div>
+</div>
+
+<div class="nl">
+<table WIDTH=100% BORDER = 1 id="goods_table"><tbody>
+<tr><th>Lp.</th><th WIDTH=70%>Nazwa</th><th>j.m.</th><th>Rabat[%]</th><th>Ilość</th><th>Rabat</th><th>Wartość<br/> brutto</th></tr>
+</tbody></table>
+</br>
+
+<div class="nl"></br></div>
+
+<div class="avoid_breaking_page">
+	<div class="right">
+	<table WIDTH=450px><tbody>
+	<tr><th><h2>Razem: %summary_value%</h2></th></tr>
+	<tr><td>%words% %summary_words%</td></tr>
+	</tbody></table>
+	</div>
+	<div class="nl"></br></div>
+</div>
+
+<div class="avoid_breaking_page">
+	<div class="left nl">Płatność: %method_of_payment%</div>
+	<div class="left nl">Termin płatności: %payment_date%</div>
+	<div class="nl"></br></div>
+
+	<div class="left"><div class="contractors">
+	<table WIDTH=100% border="1" id="issuer_receiver"><tbody>
+	<tr><th>Wystawił(a)</th></tr>
+	<tr><td height="100px" align="center" class="name">%issue_name%</td>
+	</tbody></table></div>
+	</div>
+
+
+	<div class="right" ><div class="contractors">
+	<table WIDTH = 100% border="1" id="issuer_receiver"><tbody>
+	<tr><th>Odebrał(a)</th></tr>
+	<tr><td height="100px" align="center" class="name">%receiver_name%</td>
+	</tbody></table></div></div>
+	<div class="nl"><br><br></div>
+	<div class="nl"><br><br></div>
+	<div class="left">%signature%</div>
+</div>
+
+
+
+</body>

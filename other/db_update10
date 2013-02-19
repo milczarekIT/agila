@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo 'Czy chcesz kontynuować? Tabele sale_documents, store_documents zostaną nadpisane [T/N]'
+
+read answer
+
+if [ "$answer" = "t" ] || [  "$answer" = "T" ];
+then
+	echo "Kontynuuj..."
+	mysql --user=bbraces --password=bb123456 --default_character_set utf8 < ../dbs/db_update10.sql
+	echo "Załadowano db_update10.sql"
+	
+	echo "Wszystko ok"
+else
+	echo "Nie wykonano update'u bazy!"
+fi

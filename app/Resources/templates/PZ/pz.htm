@@ -1,0 +1,115 @@
+<head>
+<link rel="stylesheet" href="../general.css" type="text/css">
+<link rel="stylesheet" href="qrc:///document-styles/style.css" type="text/css">
+<script  type="text/javascript">
+var count = 1;
+function addDocPosition (doc)
+{
+var tblBody = document.getElementById("goods_table");
+var row = document.createElement("tr");
+var lp;
+var parser=new DOMParser();
+var xmlDoc=parser.parseFromString(doc,'text/xml');
+
+	
+	function addItem (data)
+	{
+		lp = document.createElement("td");
+       		lp.appendChild(document.createTextNode(data));
+		row.appendChild(lp);
+	}
+
+	var pricenet = xmlDoc.getElementsByTagName("good_pricenet")[0].childNodes[0].nodeValue;
+	pricenet = pricenet *1;
+	var quantity = xmlDoc.getElementsByTagName("good_quantity")[0].childNodes[0].nodeValue;
+	var netval= pricenet * quantity;
+	addItem(count)
+        addItem(xmlDoc.getElementsByTagName("good_name")[0].childNodes[0].nodeValue);
+        addItem(xmlDoc.getElementsByTagName("good_unit")[0].childNodes[0].nodeValue)
+	addItem(quantity);
+	addItem(pricenet.toFixed(2));
+	addItem(netval.toFixed(2));
+
+	tblBody.appendChild(row);
+count++;
+}
+</script>
+
+</head>
+
+<div class="nl">
+<img class="logo" src="%logoPath%" />
+<div class="docType">%copyORoriginal</div>
+</div>
+
+<div class="left"><div class="ex">%my_companyname% %my_address%, %my_postcode% %my_city% %my_phone% %my_phone1% %my_phone2% %my_nip% %my_bankname% %my_bankaccount% Dodatkowe: %additional%</div></div>
+
+<div class="right"><div class="ex">
+<table WIDTH=100%><tbody>
+<tr class="overline_grey"><th>Miejsce Wystawienia</th></tr>
+<tr><td align="center">%issue_place%</td>
+<tr class="overline_grey"><th>Data wystawienia</th>
+<tr><td align="center">%issue_date%</td></tr>
+<tr class="overline_grey"><th>Rodzaj transportu</th>
+<tr><td align="center">%transport%</td></tr>
+<tr class="overline_grey"><th>Data przyjęcia</th>
+<tr><td align="center">%storeDate%</td></tr>
+</tbody></table></div>
+</div></div>
+<div class="nl"></br></br></div>
+
+<div class="left"><div class="contractors">
+<table WIDTH=100%><tbody>
+<tr class="overline_grey"><th>Przyjmujący</th></tr>
+<tr><td>%my_companyname%<br>%my_address%<br>%my_postcode% %my_city% <br>NIP: %my_nip%</td>
+</tbody></table></div>
+</div>
+
+<div class="right"><div class="contractors">
+<table WIDTH = 100%><tbody>
+<tr class="overline_grey"><th>Dostawca</th></tr>
+<tr><td>%buyer_companyname%<br>%buyer_address%<br>%buyer_postcode% %buyer_city% <br>NIP: %buyer_nip%</td>
+</tbody></table></div></div>
+
+<div class="nl">
+<div class="docType"></br>Przyjęcie zewnętrzne %document_number%
+</br></div>
+</div>
+</div>
+
+<div class="nl">
+<table WIDTH=100% BORDER = 1 id="goods_table"><tbody>
+<tr><th>Lp.</th><th>Nazwa</th><th>j.m</th><th>Ilość</th><th>Cenna<br/> netto</th><th>Wartość<br/> netto</th></tr>
+</tbody></table>
+</br>
+</div>
+
+<div class="nl"></br></div>
+
+<div class="avoid_breaking_page">
+	<div class="right">
+	<table WIDTH=450px><tbody>
+	<tr><th><h2>Razem: %summary_value%</h2></th></tr>
+	<tr><td>Słownie: %summary_words%</td></tr>
+	</tbody></table>
+	</div>
+	<div class="nl"></br></div>
+
+	<div class="left"><div class="contractors">
+	<table WIDTH=100% border="1" id="issuer_receiver"><tbody>
+	<tr><th>Wystawił(a)</th></tr>
+	<tr><td height="100px" align="center" class="name">%issue_name%</td>
+	</tbody></table></div>
+	</div>
+
+
+	<div class="right" ><div class="contractors">
+	<table WIDTH = 100% border="1" id="issuer_receiver"><tbody>
+	<tr><th>Odebrał(a)</th></tr>
+	<tr><td height="100px" align="center" class="name">%receiver_name%</td>
+	</tbody></table></div></div>
+	<div class="nl"><br><br></div>
+	<div class="left">%signature%</div>
+</div>
+
+</body>

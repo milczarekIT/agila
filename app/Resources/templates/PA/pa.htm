@@ -1,0 +1,186 @@
+<head>
+<link rel="stylesheet" href="../general.css" type="text/css">
+<link rel="stylesheet" href="qrc:///document-styles/style.css" type="text/css">
+<script type="text/javascript">
+
+var count = 1;
+var taxtable = new Array();
+function addDocPosition (doc)
+{
+var tblBody = document.getElementById("goods_table");
+var row = document.createElement("tr");
+
+var parser=new DOMParser();
+var xmlDoc=parser.parseFromString(doc,'text/xml');
+var lp;
+
+
+	
+	function addItem (data, className)
+	{
+		lp = document.createElement("td");
+       		lp.appendChild(document.createTextNode(data));
+		lp.setAttribute('class', className);
+		row.appendChild(lp);
+	}
+	var tax_short = xmlDoc.getElementsByTagName("tax_short")[0].childNodes[0].nodeValue;
+	var tax = xmlDoc.getElementsByTagName("good_tax")[0].childNodes[0].nodeValue;
+	var discount = xmlDoc.getElementsByTagName("good_discount")[0].childNodes[0].nodeValue;
+	var quantity = xmlDoc.getElementsByTagName("good_quantity")[0].childNodes[0].nodeValue;
+	var pricenet = xmlDoc.getElementsByTagName("good_pricenet")[0].childNodes[0].nodeValue*1;
+	var netval = xmlDoc.getElementsByTagName("netval")[0].childNodes[0].nodeValue *1;
+	var vatval = xmlDoc.getElementsByTagName("vatval")[0].childNodes[0].nodeValue *1;
+	var brutval = xmlDoc.getElementsByTagName("brutval")[0].childNodes[0].nodeValue *1;
+	var discount_val = xmlDoc.getElementsByTagName("discountval")[0].childNodes[0].nodeValue *1;
+	
+	var pkwiu = xmlDoc.getElementsByTagName("good_pkwiu")[0].childNodes[0].nodeValue;
+	addItem(count, 'count');
+	addItem(xmlDoc.getElementsByTagName("good_name")[0].childNodes[0].nodeValue, 'good_name');
+	if (pkwiu == "0")
+	{	
+	addItem(" ", 'pkwiu');
+	}
+	else	
+	{
+	addItem(pkwiu, 'pkwiu');
+	}
+	addItem(quantity, 'quantity');
+	addItem(xmlDoc.getElementsByTagName("good_unit")[0].childNodes[0].nodeValue, 'unit');
+	addItem(discount.toString().replace(".",","), 'discount');
+	addItem(pricenet.toFixed(2).toString().replace(".",","), 'price_net');
+	addItem(discount_val.toFixed(2).toString().replace(".",","), 'discount_val');
+	addItem(tax_short, 'tax_short');
+	addItem(netval.toFixed(2).toString().replace(".",","), 'net_val');
+	addItem(vatval.toFixed(2).toString().replace(".",","), 'vat_val');
+	addItem(brutval.toFixed(2).toString().replace(".",","), 'brut_val');
+
+	if (taxtable[tax]==null)
+	{
+		taxtable[tax] = Array (xmlDoc.getElementsByTagName("good_taxname")[0].childNodes[0].nodeValue, netval,brutval)
+	}
+	else
+	{
+		taxtable[tax][1]=taxtable[tax][1]+netval;
+		taxtable[tax][2]=taxtable[tax][2]+brutval;
+	}
+	tblBody.appendChild(row);
+count++;
+}
+function finalize()
+{
+var tblBody = document.getElementById("tax_table");
+var netto = 0;
+var vat = 0;
+var brutto= 0;
+
+for (n in taxtable)
+{
+	var row = document.createElement("tr");
+	var cell = document.createElement("td");
+	cell.appendChild(document.createTextNode(taxtable[n][0]));
+	row.appendChild(cell);
+	cell = document.createElement("td");
+	cell.appendChild(document.createTextNode(taxtable[n][1].toFixed(2).toString().replace(".",",")));
+	cell.setAttribute('class', 'net_val');
+	row.appendChild(cell);
+	cell = document.createElement("td");
+	cell.appendChild(document.createTextNode( (taxtable[n][2]-taxtable[n][1]).toFixed(2).toString().replace(".",",") ));
+	cell.setAttribute('class', 'vat_val');
+	row.appendChild(cell);
+	cell = document.createElement("td");
+	cell.appendChild(document.createTextNode(   (taxtable[n][2]).toFixed(2).toString().replace(".",",")   ));
+	cell.setAttribute('class', 'brut_val');
+	row.appendChild(cell);
+	tblBody.appendChild(row);
+	netto +=taxtable[n][1];
+	vat += taxtable[n][2]-taxtable[n][1];
+	brutto +=taxtable[n][2];
+}
+	
+
+	var row = document.createElement("tr");
+	var cell = document.createElement("td");
+	cell.appendChild(document.createTextNode("Razem:"));
+	row.appendChild(cell);
+	cell = document.createElement("td");
+	cell.appendChild(document.createTextNode(netto.toFixed(2).toString().replace(".",",")));
+	cell.setAttribute('class', 'net_val');
+	row.appendChild(cell);
+	cell = document.createElement("td");
+	cell.appendChild(document.createTextNode( vat.toFixed(2).toString().replace(".",",") ));
+	cell.setAttribute('class', 'vat_val');
+	row.appendChild(cell);
+	cell = document.createElement("td");
+	cell.appendChild(document.createTextNode(  brutto.toFixed(2).toString().replace(".",",")   ));
+	cell.setAttribute('class', 'brut_val');
+	row.appendChild(cell);
+	tblBody.appendChild(row);
+
+	
+}
+
+</script>
+</head>
+
+<div class="nl">
+<img class="logo" src="%logoPath%" />
+<div class="docType">%copyORoriginal</div>
+</div>
+
+<div class="left"><div class="ex">%my_companyname% %my_address%, %my_postcode% %my_city% %my_phone% %my_phone1% %my_phone2% %my_nip% %my_bankname% %my_bankaccount% Dodatkowe: %additional%</div></div>
+
+
+<div class="right"><div class="ex">
+<table WIDTH=100%><tbody>
+<tr class="overline_grey"><th>Miejsce Wystawienia</th></tr>
+<tr><td align="center">%issue_place%</td>
+<tr class="overline_grey"><th>Data sprzedaży</th>
+<tr><td align="center">%sale_date%</td></tr>
+<tr class="overline_grey"><th>Data wystawienia</th>
+<tr><td align="center">%issue_date%</td></tr>
+</tbody></table></div>
+</div></div>
+<div class="nl"></br></br></div>
+
+<div class="nl">
+<div class="docType"></br>Paragon %document_number%
+</br></div>
+</div>
+
+<div class="nl">
+<table WIDTH=100% BORDER = 1 id="goods_table"><tbody>
+<tr><th>Lp.</th><th>Nazwa</th><th>PKWiU</th><th>Ilość</th><th>j.m.</th><th>Rabat[%]</th><th>Cena<br/>%headPrice%</th><th>Rabat</th><th>Stawka<br/> VAT</th><th>Wartość<br/> netto</th><th>Kwota<br/> VAT</th><th>Wartość<br/> brutto</th></tr>
+</tbody></table>
+</br>
+</div>
+
+<div class="avoid_breaking_page">
+	<div class="right">
+	<table WIDTH=500px BORDER = 1 id="tax_table"><tbody>
+	<tr><th>Według stawki VAT</th><th>Wartość netto</th><th>Kwota VAT</th><th>Wartość brutto</th></tr>
+	</tbody></table>
+	</div>
+
+	<div class="nl"></br></div>
+
+	<div class="right">
+	<table WIDTH=450px><tbody>
+	<tr><th><h2>Razem: %summary_value%</h2></th></tr>
+	<tr><td>%words% %summary_words%</td></tr>
+	</tbody></table>
+	</div>
+
+	<div class="nl"></br></div>
+
+	<div class="left"><div class="contractors">
+	<table WIDTH=100% border="1" id="issuer_receiver"><tbody>
+	<tr><th>Wystawił(a)</th></tr>
+	<tr><td height="100px" align="center" class="name">%issue_name%</td>
+	</tbody></table></div>
+
+	<div class="nl"><br><br></div>
+	<div class="left">%signature%</div>
+	</div>
+</div>
+</body>
+

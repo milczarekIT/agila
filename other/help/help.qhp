@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <QtHelpProject version="1.0">
+     <namespace>agila.bluebraces.com</namespace>
+     <virtualFolder>doc</virtualFolder>
+
+     <filterSection>
+         <toc>
+             <section title="Agila S3 - pomoc" ref="index.html">
+                 <section title="Find File" ref="./doc1.html">
+                     <section title="File Dialog" ref="./doc2.html"></section>
+                     <section title="Wildcard Matching" ref="./doc3.html"></section>
+                     <section title="Browse" ref="./doc1.html"></section>
+                 </section>
+                 <section title="O Programie" ref="./oprogramie.html"></section>
+             </section>
+         </toc>
+
+         <keywords>
+             <keyword name="programie" ref="./oprogramie.html"/>
+         </keywords>
+
+         <files>
+             <file>index.html</file>
+             <file>oprogramie.html</file>
+             <file>doc1.html</file>
+             <file>doc2.html</file>
+             <file>doc3.html</file>
+
+             <file>agila.png</file>
+             <file>img1.png</file>
+             <file>img2.png</file>
+             <file>img3.png</file>
+         </files>
+
+     </filterSection>
+ </QtHelpProject>

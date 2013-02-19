@@ -1,0 +1,51 @@
+<RCC>
+    <qresource prefix="/themes">
+        <file alias="blue">Resources/style/style.qss</file>
+        <file alias="grey">Resources/style/grey.qss</file>
+    </qresource>
+    <qresource prefix="/image-theme">
+        <file alias="arrow.png">Resources/style/img/arrow.png</file>
+        <file alias="check.png">Resources/style/img/check.png</file>
+        <file alias="contr.png">Resources/style/img/contr.png</file>
+        <file alias="contractor.png">Resources/style/img/contractor.png</file>
+        <file alias="darrowblack.gif">Resources/style/img/darrowblack.gif</file>
+        <file alias="del.png">Resources/style/img/del.png</file>
+        <file alias="edit.png">Resources/style/img/edit.png</file>
+        <file alias="FK.png">Resources/style/img/FK.png</file>
+        <file alias="FM.png">Resources/style/img/FM.png</file>
+        <file alias="FMP.png">Resources/style/img/FMP.png</file>
+        <file alias="FV.png">Resources/style/img/FV.png</file>
+        <file alias="FZ.png">Resources/style/img/FZ.png</file>
+        <file alias="FZK.png">Resources/style/img/FZK.png</file>
+        <file alias="good.png">Resources/style/img/good.png</file>
+        <file alias="KP.png">Resources/style/img/KP.png</file>
+        <file alias="KW.png">Resources/style/img/KW.png</file>
+        <file alias="layout.jpg">Resources/style/img/layout.jpg</file>
+        <file alias="logo.png">Resources/style/img/logo.png</file>
+        <file alias="MM.png">Resources/style/img/MM.png</file>
+        <file alias="NK.png">Resources/style/img/NK.png</file>
+        <file alias="PA.png">Resources/style/img/PA.png</file>
+        <file alias="PI.png">Resources/style/img/PI.png</file>
+        <file alias="PRO.png">Resources/style/img/PRO.png</file>
+        <file alias="PW.png">Resources/style/img/PW.png</file>
+        <file alias="PZ.png">Resources/style/img/PZ.png</file>
+        <file alias="radio.png">Resources/style/img/radio.png</file>
+        <file alias="RR.png">Resources/style/img/RR.png</file>
+        <file alias="RW.png">Resources/style/img/RW.png</file>
+        <file alias="RZL.png">Resources/style/img/RZL.png</file>
+        <file alias="transBlack20.png">Resources/style/img/transBlack20.png</file>
+        <file alias="uarrowblack.gif">Resources/style/img/uarrowblack.gif</file>
+        <file alias="WZ.png">Resources/style/img/WZ.png</file>
+        <file alias="ZAL.png">Resources/style/img/ZAL.png</file>
+        <file alias="ZD.png">Resources/style/img/ZD.png</file>
+        <file alias="ZK.png">Resources/style/img/ZK.png</file>
+        <file alias="chooseContractor.png">Resources/style/img/chooseContractor.png</file>
+        <file alias="chooseGood.png">Resources/style/img/chooseGood.png</file>
+        <file alias="chooseDoc.png">Resources/style/img/chooseDoc.png</file>
+        <file alias="archive.png">Resources/style/img/archive.png</file>
+        <file alias="export.png">Resources/style/img/export.png</file>
+        <file alias="help.png">Resources/style/img/help.png</file>
+        <file alias="blue.png">Resources/style/img/blue.png</file>
+        <file alias="grey.png">Resources/style/img/grey.png</file>
+    </qresource>
+</RCC>

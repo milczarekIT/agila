@@ -1,0 +1,86 @@
+#include "UnpaidSaleDocumentTVModel.h"
+
+UnpaidSaleDocumentTVModel::UnpaidSaleDocumentTVModel()
+{
+    notOnTimeFilter = "";
+}
+
+
+UnpaidSaleDocumentTVModel::~UnpaidSaleDocumentTVModel() {
+
+}
+
+void UnpaidSaleDocumentTVModel::getUnpaidSaleDocuments() {
+    this->setQuery("SELECT sale_documents.symbol,  contractors.name, sale_date, payment_date, total, datediff(payment_date, now()) as days_to_payment "
+                   "FROM sale_documents, contractors "
+                   "WHERE contractors.id_contractor = sale_documents.contractor AND is_paid = 0 " + notOnTimeFilter +
+                   "ORDER BY "+QString::number(sortColumn)+" "+((sortOrder==Qt::AscendingOrder) ? "DESC" : "ASC"), Database::getInstance().db);
+
+    this->initUnpaidSaleDocumentsHeaders();
+}
+
+Price UnpaidSaleDocumentTVModel::getUnpaidSaleValue() {
+    QSqlQuery query("SELECT SUM(total) AS value "
+                         "FROM sale_documents " + notOnTimeFilter +
+                         "WHERE isActive = 1 AND is_paid = 0", Database::getInstance().db);
+    query.exec();
+    query.first();
+    double value = query.value(0).toDouble();
+
+    return Price(value);
+}
+
+void UnpaidSaleDocumentTVModel::getUnpaidPurchaseDocuments() {
+    this->setQuery("SELECT purchase_documents.symbol,  contractors.name, purchase_date, payment_date, total, datediff(payment_date, now()) as days_to_payment "
+                   "FROM purchase_documents, contractors "
+                   "WHERE contractors.id_contractor = purchase_documents.contractor AND is_paid = 0 " + notOnTimeFilter +
+                   "ORDER BY "+QString::number(sortColumn)+" "+((sortOrder==Qt::AscendingOrder) ? "DESC" : "ASC"), Database::getInstance().db);
+
+    this->initUnpaidPurchaseDocumentsHeaders();
+}
+
+Price UnpaidSaleDocumentTVModel::getUnpaidPurchaseDocumentsValue() {
+    QSqlQuery query("SELECT SUM(total) AS value "
+                         "FROM purchase_documents " + notOnTimeFilter +
+                         "WHERE isActive = 1 AND is_paid = 0", Database::getInstance().db);
+    query.exec();
+    query.first();
+    double value = query.value(0).toDouble();
+
+    return Price(value);
+}
+
+void UnpaidSaleDocumentTVModel::initUnpaidSaleDocumentsHeaders()
+{
+    this->setHeaderData(0, Qt::Horizontal, QObject::tr("Symbol"));
+    this->setHeaderData(1, Qt::Horizontal, QObject::tr("Kontrahent"));
+    this->setHeaderData(2, Qt::Horizontal, QObject::tr("Data sprzedaży"));
+    this->setHeaderData(3, Qt::Horizontal, QObject::tr("Data płatności"));
+    this->setHeaderData(4, Qt::Horizontal, QObject::tr("Wartość"));
+    this->setHeaderData(5, Qt::Horizontal, QObject::tr("Pozostało dni do zapł."));
+
+    this->columnAmount = 6;
+}
+
+void UnpaidPurchaseDocumentTVModel::initUnpaidPurchaseDocumentsHeaders()
+{
+    this->setHeaderData(0, Qt::Horizontal, QObject::tr("Symbol"));
+    this->setHeaderData(1, Qt::Horizontal, QObject::tr("Kontrahent"));
+    this->setHeaderData(2, Qt::Horizontal, QObject::tr("Data sprzedaży"));
+    this->setHeaderData(3, Qt::Horizontal, QObject::tr("Data płatności"));
+    this->setHeaderData(4, Qt::Horizontal, QObject::tr("Wartość"));
+    this->setHeaderData(5, Qt::Horizontal, QObject::tr("Pozostało dni do zapł."));
+
+    this->columnAmount = 6;
+}
+
+QVariant UnpaidSaleDocumentTVModel::data(const QModelIndex & index, int role) const
+{
+    UnpaidDocumentTVDisplayer displayer(index, role, this);
+    return displayer.display();
+}
+
+void UnpaidSaleDocumentTVModel::initNotOnTimeFilterOnly()
+{
+    notOnTimeFilter = "AND payment_date <= now() ";
+}
