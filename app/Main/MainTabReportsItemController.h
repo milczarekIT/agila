@@ -2,6 +2,7 @@
 #define MAINTABREPORTSITEMCONTROLLER_H
 
 #include <QWidget>
+#include "Other/QtHelpers/Reflection.h"
 #include "Main/MainTabReportsItem.h"
 #include "Main/MainTabItemController.h"
 #include "Report/Inventory/CurrentInventoryDialogController.h"
@@ -14,6 +15,7 @@
 #include "Report/Goods/OrderedGoodsDialogController.h"
 #include "Report/Goods/TopGoodsDialogController.h"
 #include "Report/Contractor/TopContractorsDialogController.h"
+#include "Report/ReportListDialogController.h"
 #include "Report/Report.h"
 class MainTabReportsItem;
 
@@ -31,20 +33,32 @@ public:
     void initModel();
 
 public slots:
-    void dialogCurrentInvetory(); // Remanent bieżący
-    void dialogCurrentInvetoryGroups(); // Remanent bieżący wg grup
-    void dialogUnpaidSaleDocuments(); // Niezapłacone dokumenty sprzedaży
-    void dialogUnpaidPurchaseDocuments(); // Niezapłacone dokumenty zakupu
-    void dialogUnrealizedDocumentsZK(); // Niezrealizowane zamówienia od klientów
-    void dialogUnrealizedDocumentsZD(); // Niezrealizowane zamówienia do dostawców
-    void dialogMissingGoods(); // Brakujące towary
-    void dialogEndingGoods(); // Kończące się towary
-    void dialogOrderedGoodsZK(); // Towary zamówione przez klientów
-    void dialogOrderedGoodsZD(); // Towary zamówione u dostawców
-    void dialogTopGoods(); // Najlepiej sprzedające się towary
-    void dialogTopContractors(); // Najlepsi klienci
+    void menuActionClicked(QAction* action);
+    void generateCurrentInventory(); // Remanent bieżący
+    void generateCurrentInventoryGroups(); // Remanent bieżący wg grup
+    void generateUnpaidSaleDocuments(); // Niezapłacone dokumenty sprzedaży
+    void generateUnpaidPurchaseDocuments(); // Niezapłacone dokumenty zakupu
+    void generateUnrealizedDocumentsZK(); // Niezrealizowane zamówienia od klientów
+    void generateUnrealizedDocumentsZD(); // Niezrealizowane zamówienia do dostawców
+    void generateMissingGoods(); // Brakujące towary
+    void generateEndingGoods(); // Kończące się towary
+    void generateOrderedGoodsZK(); // Towary zamówione przez klientów
+    void generateOrderedGoodsZD(); // Towary zamówione u dostawców
+    void generateTopGoods(); // Najlepiej sprzedające się towary
+    void generateTopContractors(); // Najlepsi klienci
 
-
+    void showCurrentInventory(); // Remanent bieżący
+    void showCurrentInventoryGroups(); // Remanent bieżący wg grup
+    void showUnpaidSaleDocuments(); // Niezapłacone dokumenty sprzedaży
+    void showUnpaidPurchaseDocuments(); // Niezapłacone dokumenty zakupu
+    void showUnrealizedDocumentsZK(); // Niezrealizowane zamówienia od klientów
+    void showUnrealizedDocumentsZD(); // Niezrealizowane zamówienia do dostawców
+    void showMissingGoods(); // Brakujące towary
+    void showEndingGoods(); // Kończące się towary
+    void showOrderedGoodsZK(); // Towary zamówione przez klientów
+    void showOrderedGoodsZD(); // Towary zamówione u dostawców
+    void showTopGoods(); // Najlepiej sprzedające się towary
+    void showTopContractors(); // Najlepsi klienci
 };
 
 #endif // MAINTABREPORTSITEMCONTROLLER_H

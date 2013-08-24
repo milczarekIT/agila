@@ -229,6 +229,7 @@ SOURCES += main.cpp \
     Other/Network/HttpRequester.cpp \
     Other/Network/NetworkHelper.cpp \
     Other/Network/JsonObject.cpp \
+    Other/QtHelpers/Reflection.cpp \
     SelectionWindows/SelectContractorView.cpp \
     SelectionWindows/SelectContractorController.cpp \
     SelectionWindows/SelectGoodController.cpp \
@@ -420,7 +421,16 @@ SOURCES += main.cpp \
     Document/CashDocument/CashDocumentView.cpp \
     Document/CashDocument/CashDocumentController.cpp \
     Document/CashDocument/CashDocumentModel.cpp \
-    Document/CashDocument/CashDocument.cpp
+    Document/CashDocument/CashDocument.cpp \
+    Tools/ReportGenerator/ReportDataReader.cpp \
+    Tools/ReportGenerator/ReportPdfGenerator.cpp \
+    Report/ReportInfoModel.cpp \
+    Report/ReportInfo.cpp \
+    Report/ReportInfoService.cpp \
+    Tools/PrintGenerator/HtmlStringGenerator.cpp \
+    Report/ReportListDialogController.cpp \
+    Report/ReportListDialogView.cpp \
+    Report/ReportListTVModel.cpp
 
 
 HEADERS  += MainWindow.h \
@@ -572,6 +582,7 @@ HEADERS  += MainWindow.h \
     Other/Owner/OwnerService.h \
     Other/Owner/OwnerCacheService.h \
     Other/Network/JsonObject.h \
+    Other/QtHelpers/Reflection.h \
     Tools/Archiver/ArchiverDialogController.h \
     Tools/Archiver/ArchiverDialogView.h \
     Tools/Archiver/ArchiverService.h \
@@ -843,6 +854,16 @@ HEADERS  += MainWindow.h \
     Document/CashDocument/CashDocumentService.h \
     Document/CashDocument/CashDocumentView.h \
     Other/Network/ForeignExchangeDownloader.h \
-    Other/XmlParser.h
+    Other/XmlParser.h \
+    Report/Inventory/CurrentInventoryReportPosition.h \
+    Tools/ReportGenerator/ReportDataReader.h \
+    Tools/ReportGenerator/ReportPdfGenerator.h \
+    Report/ReportInfoModel.h \
+    Report/ReportInfo.h \
+    Report/ReportInfoService.h \
+    Tools/PrintGenerator/HtmlStringGenerator.h \
+    Report/ReportListDialogController.h \
+    Report/ReportListDialogView.h \
+    Report/ReportListTVModel.h
 
 FORMS    +=

@@ -17,6 +17,8 @@ public:
 
     void getData();
 
+    QVariant data(int row, int column, int role);
+
     void setListLimitFilter(int limit);
     void setDateFromFilter(QDate fromDate);
     void setDateToFilter(QDate toDate);

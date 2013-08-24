@@ -4,15 +4,12 @@ User::User()
 {
 }
 
-User::User(QString login, QString name, int type)
-{
-    this->login = login;
-    this->name = name;
-    this->type = type;
-}
-
 User::~User()
 {
+}
+
+void User::setId(int id) {
+    this->id = id;
 }
 
 void User::setLogin(QString login) {
@@ -25,6 +22,10 @@ void User::setName(QString name) {
 
 void User::setType(int type) {
     this->type = type;
+}
+
+int User::getId() {
+    return id;
 }
 
 QString User::getLogin() {
@@ -45,7 +46,9 @@ bool User::isAdmin() {
 
 int User::operator ==(User u)
 {
-    if(this->login != u.getLogin())
+    if(&u == NULL)
+        return 0;
+    else if(this->login != u.getLogin())
         return 0;
     else if(this->name != u.getName())
         return 0;

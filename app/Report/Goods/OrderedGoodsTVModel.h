@@ -16,6 +16,8 @@ protected:
 public:
     OrderedGoodsTVModel(QString type);
 
+    QVariant data(int row, int column, int role);
+
     void getData();
 };
 

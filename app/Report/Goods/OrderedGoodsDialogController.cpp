@@ -26,10 +26,14 @@ void OrderedGoodsDialogController::exec()
     view->exec();
 }
 
-void OrderedGoodsDialogController::printReport()
+void OrderedGoodsDialogController::saveReport()
 {
-   qDebug() << "Tu wstawić drukowanie rapotu: EndingGoodsDialogController::printReport()";
-   view->accept();
+    ReportDataReader *reportDataReader = new ReportDataReader(view->getTableView());
+    if(type == "ZK")
+        doSaveReport(reportDataReader, view->windowTitle(), Report::ORDERED_CONTRACTOR_GOODS);
+    else
+        doSaveReport(reportDataReader, view->windowTitle(), Report::ORDERED_SUPPLIER_GOODS);
+    view->accept();
 }
 
 void OrderedGoodsDialogController::restoreTableState() {

@@ -66,7 +66,7 @@ count goods_name pkwiu quantity discount price_net discount_val tax_short net_va
 	padding-top: 10px;
 	vertical-align: top;
 }
-.logo
+img.logo
 {
 	border: none;
 	min-width: 100px;

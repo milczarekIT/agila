@@ -23,7 +23,7 @@ public:
     void exec();
 
 public slots:
-    void printReport();
+    void saveReport();
     void quantityChanged(double value);
 };
 

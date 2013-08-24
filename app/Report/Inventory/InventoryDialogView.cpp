@@ -18,6 +18,7 @@ void InventoryDialogView::addComponents()
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     tableView->setSelectionMode(QAbstractItemView::SingleSelection);
     tableView->setFocusPolicy(Qt::NoFocus);
+    tableView->verticalHeader()->setDefaultSectionSize(20);
 
     labelValue = new QLabel("Wartość netto: ");
     labelValue->setAlignment(Qt::AlignRight);

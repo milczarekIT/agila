@@ -34,10 +34,11 @@ void CurrentInventoryGroupsDialogController::showWithZeroQuantity(bool checked)
     tvModel->getData();
 }
 
-void CurrentInventoryGroupsDialogController::printReport()
+void CurrentInventoryGroupsDialogController::saveReport()
 {
-   qDebug() << "Tu wstawić drukowanie rapotu: CurrentInventoryGroupsDialogController::printReport()";
-   view->accept();
+    ReportDataReader *reportDataReader = new ReportDataReader(view->getTableView());
+    doSaveReport(reportDataReader, view->windowTitle(), Report::CURRENT_INVENTORY_GROUP);
+    view->accept();
 }
 
 void CurrentInventoryGroupsDialogController::restoreTableState() {

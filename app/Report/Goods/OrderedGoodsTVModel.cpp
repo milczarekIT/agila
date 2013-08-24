@@ -56,3 +56,8 @@ QVariant OrderedGoodsTVModel::data(const QModelIndex & index, int role) const
     OrderedGoodsTVDisplayer displayer(index, role, this);
     return displayer.display();
 }
+
+QVariant OrderedGoodsTVModel::data(int row, int column, int role) {
+    QModelIndex modelIndex = this->index(row, column);
+    return data(modelIndex, role);
+}

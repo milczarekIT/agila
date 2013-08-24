@@ -6,12 +6,12 @@ GoodsDialogView::GoodsDialogView(QWidget *parent, GoodsDialogController *control
 {
     this->controller = controller;
     lineSymbol = new QLineEdit();
-    lineSymbol->setMaxLength(127);
+    lineSymbol->setMaxLength(200);
     linePkwiu = new QLineEdit();
     linePriceMagNet = new QLineEdit();
     linePriceMagGross = new QLineEdit();
     lineName = new QLineEdit();
-    lineName->setMaxLength(127);
+    lineName->setMaxLength(200);
     lineWeight = new QLineEdit();
     radioGood = new QRadioButton();
     radioService = new QRadioButton();
@@ -99,16 +99,6 @@ void GoodsDialogView::addAllStandardComponents()
     standardLayout->addWidget(picture,0,3,5,3);
     standardLayout->addWidget(framePicture,0,3,5,3);
     setComponents(standardLayout,textDescription,"Opis: ",7,1,5,5);
-   //
-    //standardLayout->addWidget(pushAddGroup = new QPushButton("+"),5,4,1,1);
-    //standardLayout->addWidget(pushDeleteGroup = new QPushButton("-"),5,5,1,1);
-    //standardLayout->addWidget(pushAddFeature = new QPushButton("+"),7,0,1,1);
-    //standardLayout->addWidget(pushDeleteFeature = new QPushButton("-"),8,0,1,1);
-    //pushAddGroup->setMaximumWidth(20);
-    //pushDeleteGroup->setMaximumWidth(20);
-    //connect(pushAddGroup,SIGNAL(clicked()),controller,SLOT(dialogGoodsGroupAccess()));
-    //connect(pushDeleteGroup,SIGNAL(clicked()),controller,SLOT(deleteGoodsGroup()));
-
 }
 
 void GoodsDialogView::addWarehouseSelection() {

@@ -19,7 +19,6 @@ void SettingsPanelController::getSettingsModel()
     view->getTabDocumentText()->setModel();
     view->getTabDefDocPlace()->setModel();
     view->getTabOwner()->insertOwnerData1();
-    // nie wiem jak z uzytkownikami, i magazynami
     initModularity();
 }
 

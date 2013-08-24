@@ -17,7 +17,6 @@ SettingsTaxesController::~SettingsTaxesController()
 void SettingsTaxesController::setModel(QString currentValue)
 {
     updateTable();
-    qDebug()<<preferences->getTaxIdForRR();
     view->getLineTaxId()->setText(taxModel->getTax(preferences->getTaxIdForRR()).getName());
     if (currentValue != "")
         setItemForValue(currentValue);

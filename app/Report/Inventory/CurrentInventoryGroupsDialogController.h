@@ -24,7 +24,7 @@ public:
 
 public slots:
     void showWithZeroQuantity(bool checked);
-    void printReport();
+    void saveReport();
 };
 
 #endif // CURRENTINVENTORYGROUPSDIALOGCONTROLLER_H

@@ -47,5 +47,6 @@
         <file alias="help.png">Resources/style/img/help.png</file>
         <file alias="blue.png">Resources/style/img/blue.png</file>
         <file alias="grey.png">Resources/style/img/grey.png</file>
+        <file alias="logo_big.png">Resources/style/img/logo_big.png</file>
     </qresource>
 </RCC>

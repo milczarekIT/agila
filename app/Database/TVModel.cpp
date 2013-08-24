@@ -20,3 +20,7 @@ Qt::SortOrder TVModel::getSortOrder(){
 int TVModel::getSortColumn(){
     return sortColumn;
 }
+
+QVariant TVModel::data(int row, int column, int role) {
+    return baseData(this->index(row, column), role);
+}

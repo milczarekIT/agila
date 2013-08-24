@@ -30,10 +30,11 @@ void TopGoodsDialogController::exec()
     view->exec();
 }
 
-void TopGoodsDialogController::printReport()
+void TopGoodsDialogController::saveReport()
 {
-   qDebug() << "Tu wstawić drukowanie rapotu: TopGoodsDialogController::printReport()";
-   view->accept();
+    ReportDataReader *reportDataReader = new ReportDataReader(view->getTableView());
+    doSaveReport(reportDataReader, view->windowTitle(), Report::BESTSELLER_GOODS);
+    view->accept();
 }
 
 void TopGoodsDialogController::setListLimitFilter(int limit)

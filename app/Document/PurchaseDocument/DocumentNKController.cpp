@@ -30,7 +30,8 @@ void DocumentNKController::exec()   {
     delete sm;
     sm = NULL;
 
-    this->view->getLineIssueName()->setText(ApplicationManager::getInstance()->getLoggedUser().getName());
+    if(ApplicationManager::getInstance()->getLoggedUser() != NULL)
+        this->view->getLineIssueName()->setText(ApplicationManager::getInstance()->getLoggedUser()->getName());
 
     int signal = view->exec();
 

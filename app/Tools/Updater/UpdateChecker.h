@@ -7,7 +7,6 @@
 #include "Other/Application/ApplicationInfo.h"
 #include "Other/Network/HttpRequester.h"
 #include "Other/Network/JsonObject.h"
-#include "Tools/LicenseChecker/LicenseChecker.h"
 #include "UpdateInfo.h"
 
 class UpdateChecker : public QThread

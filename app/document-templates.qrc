@@ -13,8 +13,11 @@
         <file alias="FZK-template.htm">Resources/templates/FZK/fzk.htm</file>
         <file alias="PurchaseInvoice-template.htm">Resources/templates/PurchaseInvoice/PurchaseInvoice.htm</file>
         <file alias="Order-template.htm">Resources/templates/Order/Order.htm</file>
+        <file alias="report.htm">Resources/templates/Reports/report.htm</file>
+        <file alias="report3.htm">Resources/templates/Reports/report3.htm</file>
     </qresource>
     <qresource prefix="/document-styles">
         <file alias="style.css">Resources/templates/general.css</file>
+        <file alias="reinvented.css">Resources/templates/reinvented.css</file>
     </qresource>
 </RCC>

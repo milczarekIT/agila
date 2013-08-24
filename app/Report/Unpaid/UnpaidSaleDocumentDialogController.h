@@ -14,7 +14,7 @@ public:
 
 public slots:
     void showOnlyNotPaidOnTime(bool checked);
-    void printReport();
+    void saveReport();
 };
 
 #endif // UNPAIDSALEDOCUMENTDIALOGCONTROLLER_H

@@ -55,6 +55,11 @@ QVariant CurrentInventoryGroupsTVModel::data(const QModelIndex & index, int role
     return displayer.display();
 }
 
+QVariant CurrentInventoryGroupsTVModel::data(int row, int column, int role) {
+    QModelIndex modelIndex = this->index(row, column);
+    return data(modelIndex, role);
+}
+
 void CurrentInventoryGroupsTVModel::showWithZeroQuantityFilter() {
     zeroQuantityFilter = "";
 }

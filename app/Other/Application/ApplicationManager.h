@@ -17,7 +17,7 @@ private:
 
     int applicationMode;
 
-    User loggedUser;
+    User *loggedUser;
     ModuleManager *modulesManager;
     Warehouse *currentWarehouse;
     QString applicationName;
@@ -26,13 +26,13 @@ private:
 
 public:
     static ApplicationManager* getInstance();
-    User getLoggedUser();
+    User *getLoggedUser();
     Warehouse* getWarehouse();
     int getWarehouseId();
     QString getApplicationName();
     bool containsModule(ModuleManager::Module module);
 
-    void setLoggedUser(User user);
+    void setLoggedUser(User *user);
     void setWarehouse(Warehouse warehouse);
 
     bool isAgilaFaktury();

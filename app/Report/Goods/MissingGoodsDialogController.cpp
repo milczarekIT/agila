@@ -23,10 +23,11 @@ void MissingGoodsDialogController::exec()
 }
 
 
-void MissingGoodsDialogController::printReport()
+void MissingGoodsDialogController::saveReport()
 {
-   qDebug() << "Tu wstawić drukowanie rapotu: MissingGoodsDialogController::printReport()";
-   view->accept();
+    ReportDataReader *reportDataReader = new ReportDataReader(view->getTableView());
+    doSaveReport(reportDataReader, view->windowTitle(),  Report::MISSING_GOODS);
+    view->accept();
 }
 
 void MissingGoodsDialogController::restoreTableState() {

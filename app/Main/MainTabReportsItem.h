@@ -18,21 +18,22 @@ private:
     void setConnections();
 
     void addReportGroup(QString title, QList<QPushButton*> *buttons);
+    QMenu* stdButtonMenu();
 
     QWidget *parent;
 
      Button *currentInventory;
      Button *currentInventoryGroups;
-     Button *unpaidSaleDocument;
-     Button *unpaidPurchaseDocument;
+     Button *unpaidSaleDocuments;
+     Button *unpaidPurchaseDocuments;
      Button *unrealizedDocumentsZK;
      Button *unrealizedDocumentsZD;
      Button *missingGoods;
      Button *endingGoods;
      Button *orderedGoodsZK;
      Button *orderedGoodsZD;
-     Button *bestSellerGoods;
-     Button *bestBuyers;
+     Button *topGoods;
+     Button *topContractors;
 
 
      QScrollArea *scrollArea;
@@ -41,6 +42,9 @@ private:
 
 public:
     MainTabReportsItem(MainTabReportsItemController *controller, QWidget *parent = 0);
+
+    static QString ACTION_MENU_SHOW;
+    static QString ACTION_MENU_GENERATE;
 
 };
 

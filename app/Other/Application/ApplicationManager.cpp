@@ -4,11 +4,12 @@ ApplicationManager* ApplicationManager::instance = 0;
 
 ApplicationManager::ApplicationManager()
 {
+    loggedUser = 0;
     WarehouseService *service = new WarehouseService();
     this->currentWarehouse = service->getDefaultWarehouse();
     delete service;
 
-    this->applicationMode = ApplicationManager::AGILA_S3;
+    this->applicationMode = ApplicationManager::AGILA_FAKTURY;
     modulesManager = new ModuleManager();
 
     initApplicationConfig();
@@ -56,7 +57,7 @@ void ApplicationManager::initApplicationConfig()
 
 }
 
-User ApplicationManager::getLoggedUser()
+User* ApplicationManager::getLoggedUser()
 {
     return loggedUser;
 }
@@ -74,7 +75,7 @@ int ApplicationManager::getWarehouseId() {
     return currentWarehouse->getId();
 }
 
-void ApplicationManager::setLoggedUser(User user)
+void ApplicationManager::setLoggedUser(User* user)
 {
     this->loggedUser = user;
 }

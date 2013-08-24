@@ -96,6 +96,11 @@ QVariant UnpaidDocumentTVModel::data(const QModelIndex & index, int role) const
     return displayer.display();
 }
 
+QVariant UnpaidDocumentTVModel::data(int row, int column, int role) {
+    QModelIndex modelIndex = this->index(row, column);
+    return data(modelIndex, role);
+}
+
 void UnpaidDocumentTVModel::notOnTimeFilterOnly()
 {
     notOnTimeFilter = "AND payment_date::DATE <= 'now'::DATE ";

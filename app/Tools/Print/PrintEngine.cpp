@@ -140,10 +140,7 @@ void PrintEngine::setHtml()
         page.settings()->globalSettings()->setAttribute(QWebSettings::AutoLoadImages, true);
         page.mainFrame()->setHtml(htmlCode);
 
-
-
         waitForLoad();
-
         hideLogoIfNotDefined(); // musi być bo setHtml
 
         isSetHtml=true;
@@ -235,7 +232,6 @@ void PrintEngine::addCorrectionPosition(DocumentPosition *before, DocumentPositi
 
 void PrintEngine::print(QPrinter* drukarka,bool paid)
 {
-
     if(isSetHtml==false){
         page.mainFrame()->setHtml(htmlCode);
         isSetHtml=true;

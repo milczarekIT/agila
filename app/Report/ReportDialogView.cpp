@@ -7,7 +7,7 @@ ReportDialogView::ReportDialogView(QWidget *parent) : QDialog(parent)
 
     buttonBox = new QDialogButtonBox(Qt::Horizontal, this);
     buttonBox->addButton("Anuluj", QDialogButtonBox::RejectRole);
-    buttonBox->addButton("Drukuj", QDialogButtonBox::AcceptRole);
+    buttonBox->addButton("Zapisz", QDialogButtonBox::AcceptRole);
 }
 
 QTableView* ReportDialogView::getTableView()

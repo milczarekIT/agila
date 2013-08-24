@@ -35,10 +35,11 @@ void CurrentInventoryDialogController::showWithZeroQuantity(bool checked)
     tvModel->getData();
 }
 
-void CurrentInventoryDialogController::printReport()
+void CurrentInventoryDialogController::saveReport()
 {
-   qDebug() << "Drukowanie rapotu: CurrentInventoryDialogController::printReport()";
-   view->accept();
+    ReportDataReader *reportDataReader = new ReportDataReader(view->getTableView());
+    doSaveReport(reportDataReader, view->windowTitle(),  Report::CURRENT_INVENTORY);
+    view->accept();
 }
 
 void CurrentInventoryDialogController::restoreTableState() {
