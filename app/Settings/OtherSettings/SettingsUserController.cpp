@@ -17,13 +17,20 @@ SettingsUserController::~SettingsUserController()
 void SettingsUserController::setModel(QString login)
 {
     fillBox(view->getBoxUsers(),model->getUsers());
+    if (login == "") {
+        if(ApplicationManager::getInstance()->getLoggedUser() != NULL) {
+            login = ApplicationManager::getInstance()->getLoggedUser()->getLogin();
+        }
+    }
 
-    user = model->getUser(login);
-    if (login == "") login = ApplicationManager::getInstance()->getLoggedUser().getLogin();
-    int currentIndex = view->getBoxUsers()->findData(QVariant(login));
-    view->getBoxUsers()->setCurrentIndex(currentIndex);
+    if (login != "") {
+        user = model->getUser(login);
+        int currentIndex = view->getBoxUsers()->findData(QVariant(login));
+        view->getBoxUsers()->setCurrentIndex(currentIndex);
 
-    setData(user);
+        setData(user);
+    }
+
 }
 
 void SettingsUserController::showUserData(int index)
@@ -36,10 +43,10 @@ void SettingsUserController::showUserData(int index)
     buttonStatus = SettingsAbstractItemController::EDIT;
 }
 
-void SettingsUserController::setData(User u)
+void SettingsUserController::setData(User *u)
 {
-    view->getLineLogin()->setText(u.getLogin());
-    view->getLineName()->setText(u.getName());
+    view->getLineLogin()->setText(u->getLogin());
+    view->getLineName()->setText(u->getName());
     view->getLineActualPassword()->clear();
     view->getLineNewPassword()->clear();
     view->getLineReplyNewPassword()->clear();
@@ -63,11 +70,11 @@ void SettingsUserController::showSignsInPasswordFields(bool state)
     view->getLineReplyNewPassword()->setEchoMode(echoMode);
 }
 
-void SettingsUserController::saveChanges(User u)
+void SettingsUserController::saveChanges(User *u)
 {
     if (checkFillForEdit()) return;
 
-    u.setType(user.getType());
+    u->setType(user->getType());
     bool passwordEdited = checkDesireToEditPassword();
 
     if (!(u == user) || passwordEdited)
@@ -84,8 +91,8 @@ void SettingsUserController::saveChanges(User u)
             }
             if (!(u == user))
             {
-                model->editUser(u,user.getLogin());
-                setModel(u.getLogin());
+                model->editUser(u,user->getLogin());
+                setModel(u->getLogin());
                 view->emitChangesWereMade();
             }
             return;
@@ -98,18 +105,17 @@ void SettingsUserController::saveChanges(User u)
 void SettingsUserController::save()
 {
     int USER_TYPE = User::TYPE_USER;
-    //if(view->getBoxKindsOfAccount()->currentText().contains("Admin"))
-    //        USER_TYPE = User::TYPE_ADMIN;
-    //else if(view->getBoxKindsOfAccount()->currentText().contains("Użytk"))
-    //        USER_TYPE = User::TYPE_USER;
 
-    User u(view->getLineLogin()->text(),view->getLineName()->text(),USER_TYPE);
+    User *u;
+    u->setLogin(view->getLineLogin()->text());
+    u->setName(view->getLineName()->text());
+    u->setType(USER_TYPE);
 
 
     if (buttonStatus == SettingsAbstractItemController::EDIT)
             saveChanges(u);
 
-    else if (!model->isLoginInDatabase(u.getLogin()))
+    else if (!model->isLoginInDatabase(u->getLogin()))
     {
         if (buttonStatus == SettingsAbstractItemController::ADD)
              saveAddition(u);
@@ -120,7 +126,7 @@ void SettingsUserController::save()
     }
 }
 
-void SettingsUserController::saveAddition(User u)
+void SettingsUserController::saveAddition(User *u)
 {
     if (checkFillForAdd()) return;
 
@@ -128,8 +134,8 @@ void SettingsUserController::saveAddition(User u)
     {
         if (view->getMessageBox()->createQuestionBox("Definiowanie użytkownika. ") == MessageBox::YES)
         {
-            model->addUser(u,createHashCode(view->getLineNewPassword()->text()));
-            setModel(u.getLogin());
+            model->addUser(*u,createHashCode(view->getLineNewPassword()->text()));
+            setModel(u->getLogin());
             view->emitChangesWereMade();
         }
     }
@@ -149,7 +155,7 @@ void SettingsUserController::addUser()
 
 void SettingsUserController::removeUser()
 {
-    if(user.getType() != User::TYPE_ADMIN)
+    if(user->getType() != User::TYPE_ADMIN)
     {
         if (view->getMessageBox()->createQuestionBox("Usuwanie wybranego użytkownika !") == MessageBox::YES)
         {
@@ -219,7 +225,7 @@ bool SettingsUserController::checkDesireToEditPassword()
 
 bool SettingsUserController::passwordsAreCorrect()
 {
-    if(model->getPassword(user.getLogin()) != createHashCode(view->getLineActualPassword()->text()))
+    if(model->getPassword(user->getLogin()) != createHashCode(view->getLineActualPassword()->text()))
     {
         view->getMessageBox()->createInfoBox(" Wprowadzono niepoprawne hasło. ");
         return false;

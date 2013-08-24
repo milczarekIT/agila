@@ -39,6 +39,11 @@ QVariant ReportGoodsTVModel::data(const QModelIndex & index, int role) const
     return displayer.display();
 }
 
+QVariant ReportGoodsTVModel::data(int row, int column, int role) {
+    QModelIndex modelIndex = this->index(row, column);
+    return data(modelIndex, role);
+}
+
 void ReportGoodsTVModel::setQuantityFilter(double value)
 {
     quantityFilter = "AND quantity <= " + QString::number(value) + " ";

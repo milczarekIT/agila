@@ -42,8 +42,8 @@ QVector<User> UserService::getUsers() {
     return users;
 }
 
-User UserService::getUser(QString login) {
-    User user;
+User *UserService::getUser(QString login) {
+    User *user = NULL;
     try {
         user = model->getUser(login);
     } catch(SQLException *e) {

@@ -48,9 +48,6 @@ QFile *HttpRequester::downloadFile(QString fileUrl) {
     loop = new QEventLoop();
     QObject::connect(reply, SIGNAL(readyRead()), loop, SLOT(quit()));
 
-    /*************************************
-     * Sprawdzic czy działa bez timera ! *
-     *************************************/
     QTimer *idleTimer = new QTimer(this);
     connect(idleTimer,SIGNAL(timeout()),loop,SLOT(quit()));
     idleTimer->setInterval(SECONDS_FOR_WAITING_ON_RESPONSE * 1000);

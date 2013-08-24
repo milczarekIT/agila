@@ -96,13 +96,10 @@ void MainTab::setItems()
         reports = new MainTabReportsItemController(parent);
         this->addTab(reports->getView(), "Raporty");
     }
-
     others = new MainTabOthersItemController();
     this->addTab(others->getView(), "Inne");
-
     settings = new SettingsPanelController();
     this->addTab(settings->getView(), "Ustawienia");
-
 }
 
 void MainTab::setOptions()

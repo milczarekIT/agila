@@ -31,10 +31,11 @@ void TopContractorsDialogController::exec()
     view->exec();
 }
 
-void TopContractorsDialogController::printReport()
+void TopContractorsDialogController::saveReport()
 {
-   qDebug() << "Tu wstawić drukowanie rapotu: TopContractorsDialogController::printReport()";
-   view->accept();
+    ReportDataReader *reportDataReader = new ReportDataReader(view->getTableView());
+    doSaveReport(reportDataReader, view->windowTitle(), Report::TOP_CONTRACTORS);
+    view->accept();
 }
 
 void TopContractorsDialogController::setListLimitFilter(int limit)

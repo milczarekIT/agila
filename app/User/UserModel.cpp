@@ -20,7 +20,7 @@ bool UserModel::isCorrectLogin(QString login, QString hash)
 
     delete query;
 
-    return (size > 0) ? true : false;
+    return (size > 0);
 }
 
 bool UserModel::isLoginInDatabase(QString login)
@@ -37,40 +37,40 @@ bool UserModel::isLoginInDatabase(QString login)
 
     delete query;
 
-    return (size > 0) ? true : false;
+    return (size > 0);
 }
 
 QVector<User> UserModel::getUsers() {
     QVector<User> users;
 
     query = new QSqlQuery(Database::getInstance().db);
-    query->prepare("SELECT login, name, type FROM users WHERE is_active = true");
+    query->prepare("SELECT id, login, name, type FROM users WHERE is_active = true");
     query->exec();
 
     if(this->isQueryError(query))
         throw new SQLException("UserModel::getUsers()", query);
     else
     {
-        User *user = new User();
         while(query->next())
         {
-            user->setLogin(query->value(0).toString());
-            user->setName(query->value(1).toString());
-            user->setType(query->value(2).toInt());
-            users.push_back(*user);
+            User user;
+            user.setId(query->value(0).toInt());
+            user.setLogin(query->value(1).toString());
+            user.setName(query->value(2).toString());
+            user.setType(query->value(3).toInt());
+            users.push_back(user);
         }
-        delete user;
         delete query;
     }
 
     return users;
 }
 
-User UserModel::getUser(QString login) {
-    User user;
+User *UserModel::getUser(QString login) {
+    User *user = NULL;
 
     query = new QSqlQuery(Database::getInstance().db);
-    query->prepare("SELECT login, name, type FROM users "
+    query->prepare("SELECT login, name, type, id FROM users "
                           "WHERE login = ? AND is_active = true");
     query->addBindValue(login);
     query->exec();
@@ -80,9 +80,11 @@ User UserModel::getUser(QString login) {
 
     if(query->size() > 0) {
         query->first();
-        user.setLogin(query->value(0).toString());
-        user.setName(query->value(1).toString());
-        user.setType(query->value(2).toInt());
+        user = new User();
+        user->setLogin(query->value(0).toString());
+        user->setName(query->value(1).toString());
+        user->setType(query->value(2).toInt());
+        user->setId(query->value(3).toInt());
     }
     delete query;
 
@@ -128,12 +130,12 @@ QString UserModel::getPassword(QString login) {
     return hash;
 }
 
-void UserModel::editUser(User u, QString oldLogin)
+void UserModel::editUser(User *u, QString oldLogin)
 {
     query = new QSqlQuery(Database::getInstance().db);
     query->prepare("UPDATE users SET login = :newlogin, name = :name WHERE login = :oldlogin");
-    query->bindValue(":newlogin",u.getLogin());
-    query->bindValue(":name",u.getName());
+    query->bindValue(":newlogin",u->getLogin());
+    query->bindValue(":name",u->getName());
     query->bindValue(":oldlogin",oldLogin);
     query->exec();
 
@@ -143,12 +145,12 @@ void UserModel::editUser(User u, QString oldLogin)
     delete query;
 }
 
-void UserModel::editPassword(User u, QString password)
+void UserModel::editPassword(User *u, QString password)
 {
     query = new QSqlQuery(Database::getInstance().db);
     query->prepare("UPDATE users SET password = :pass WHERE login = :login");
     query->bindValue(":pass",password);
-    query->bindValue(":login",u.getLogin());
+    query->bindValue(":login",u->getLogin());
     query->exec();
 
     if(this->isQueryError(query))

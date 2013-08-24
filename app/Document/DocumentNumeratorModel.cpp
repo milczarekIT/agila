@@ -6,7 +6,7 @@ DocumentNumeratorModel::DocumentNumeratorModel()
 
 QString DocumentNumeratorModel::getPrevoiusSymbol(QString documentType, QString tableName)
 {
-    QString previousSymbol;
+    QString previousSymbol = "";
     QString queryString;
     queryString = "SELECT symbol, id FROM " + tableName + " WHERE type = '" + documentType + "' AND warehouse = " + QString::number(ApplicationManager::getInstance()->getWarehouse()->getId());
 
@@ -14,7 +14,7 @@ QString DocumentNumeratorModel::getPrevoiusSymbol(QString documentType, QString 
         queryString += " UNION SELECT symbol, id FROM sale_documents WHERE type IN ('ZAL', 'RZL')  AND symbol LIKE '" + documentType + "/%' AND warehouse = "
                 + QString::number(ApplicationManager::getInstance()->getWarehouse()->getId());
     }
-    queryString += "ORDER BY id DESC LIMIT 1";
+    queryString += " ORDER BY id DESC LIMIT 1";
 
     query = new QSqlQuery(Database::getInstance().db);
     query->prepare(queryString);
@@ -34,18 +34,22 @@ QString DocumentNumeratorModel::getPrevoiusSymbol(QString documentType, QString 
 
 QString DocumentNumeratorModel::getNumberingFormat(QString documentType)
 {
-    QString numberingFormat;
+    QString numberingFormat = "";
     query = new QSqlQuery(Database::getInstance().db);
     query->prepare("SELECT numbering FROM wh_numbering WHERE type = ? AND warehouse = ?");
     query->addBindValue(documentType);
     query->addBindValue(ApplicationManager::getInstance()->getWarehouse()->getId());
     query->exec();
-    query->first();
+
 
     if(this->isQueryError(query))
             throw new SQLException("DocumentNumeratorModel::getNumberingFormat", query);
 
-    numberingFormat = query->value(0).toString();
+    if(query->size() > 0)
+    {
+        query->first();
+        numberingFormat = query->value(0).toString();
+    }
 
     return numberingFormat;
 }
@@ -66,6 +70,8 @@ bool DocumentNumeratorModel::isAvailableSymbol(QString documentType, QString sym
         table ="purchase_documents";
     else if(documentType =="CN" || documentType == "OF")
         table = "price_lists";
+    else if(documentType == "REP")
+        table = "reports";
 
     query = new QSqlQuery(Database::getInstance().db);
     query->prepare("SELECT symbol FROM " + table + " WHERE symbol = ? AND warehouse = ?");
@@ -76,10 +82,7 @@ bool DocumentNumeratorModel::isAvailableSymbol(QString documentType, QString sym
     if(this->isQueryError(query))
             throw new SQLException("DocumentNumeratorModel::isAvailableSymbol", query);
 
-    if(query->size() == 0)
-        return true;
-    else
-        return false;
+    return (query->size() == 0);
 }
 
 

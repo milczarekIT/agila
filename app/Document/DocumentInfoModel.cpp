@@ -192,7 +192,9 @@ QString DocumentInfoModel::getTableNameByDocumentType(QString documentType) {
     else if(documentType == "WZ" || documentType == "PZ" || documentType == "RW" || documentType == "PW" || documentType == "MM+" || documentType == "MM-")
         return "warehouse_documents";
     else if(documentType == "CN" || documentType == "OF")
-        return "price_lists"; // available after demo
+        return "price_lists";
+    else if(documentType == "REP")
+        return "reports";
     else
         return "";
 }

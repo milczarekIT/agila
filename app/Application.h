@@ -24,7 +24,7 @@ private:
     void login();
     void checkOwner();
     void setAppInformation();
-    int checkLicenceAndRun();
+    int run();
 
 public:
     explicit Application(int argc, char *argv[]);

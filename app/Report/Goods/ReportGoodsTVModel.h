@@ -16,6 +16,8 @@ public:
 
     void getData();
 
+    QVariant data(int row, int column, int role);
+
     void setQuantityFilter(double value);
 };
 

@@ -14,10 +14,10 @@ class SettingsUserController : public SettingsAbstractItemController
 private:
     SettingsUserView *view;
     UserModel *model;
-    User user;
+    User *user;
     QString pass;
     void setModel(QString login = "");
-    void setData(User u);
+    void setData(User *u);
     QString createHashCode(QString password);
     bool checkDesireToEditPassword();
     bool checkFillForEdit();
@@ -25,8 +25,8 @@ private:
     bool passwordsAreCorrect();
     bool checkCorrectnessOfNewPassword();
     void fillBox(QComboBox *box,QVector<User> values);
-    void saveAddition(User u);
-    void saveChanges(User u);
+    void saveAddition(User *u);
+    void saveChanges(User *u);
 
 
 public:

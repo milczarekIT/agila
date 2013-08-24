@@ -9,20 +9,35 @@ MainTabReportsItem::MainTabReportsItem(MainTabReportsItemController * controller
     this->setMinimumHeight(600);
 }
 
+QString MainTabReportsItem::ACTION_MENU_SHOW = "SHOW";
+QString MainTabReportsItem::ACTION_MENU_GENERATE = "GENERATE";
+
 void MainTabReportsItem::setInterface()
 {
     currentInventory = new Button(ButtonStruct("Remanent bieżący"));
+    currentInventory->setProperty("buttonName", "currentInventory");
     currentInventoryGroups = new Button(ButtonStruct("Remanent bieżący wg grup"));
-    unpaidSaleDocument = new Button(ButtonStruct("Niezapłacone dokumenty sprzedaży"));
-    unpaidPurchaseDocument = new Button(ButtonStruct("Niezapłacone dokumenty zakupu"));
+    currentInventoryGroups->setProperty("buttonName", "currentInventoryGroups");
+    unpaidSaleDocuments = new Button(ButtonStruct("Niezapłacone dokumenty sprzedaży"));
+    unpaidSaleDocuments->setProperty("buttonName", "unpaidSaleDocuments");
+    unpaidPurchaseDocuments = new Button(ButtonStruct("Niezapłacone dokumenty zakupu"));
+    unpaidPurchaseDocuments->setProperty("buttonName", "unpaidPurchaseDocuments");
     unrealizedDocumentsZK = new Button(ButtonStruct("Niezrealizowane zamówienia od klientów"));
+    unrealizedDocumentsZK->setProperty("buttonName", "unrealizedDocumentsZK");
     unrealizedDocumentsZD = new Button(ButtonStruct("Niezrealizowane zamówienia do dostawców"));
+    unrealizedDocumentsZD->setProperty("buttonName", "unrealizedDocumentsZD");
     missingGoods = new Button(ButtonStruct("Brakujące towary"));
+    missingGoods->setProperty("buttonName", "missingGoods");
     endingGoods = new Button(ButtonStruct("Kończące się towary"));
+    endingGoods->setProperty("buttonName", "endingGoods");
     orderedGoodsZK = new Button(ButtonStruct("Towary zamówione przez klientów"));
+    orderedGoodsZK->setProperty("buttonName", "orderedGoodsZK");
     orderedGoodsZD = new Button(ButtonStruct("Towary zamówione u dostawców"));
-    bestSellerGoods = new Button(ButtonStruct("Najlepiej sprzedające się towary"));
-    bestBuyers = new Button(ButtonStruct("Najwięksi klienci"));
+    orderedGoodsZD->setProperty("buttonName", "orderedGoodsZD");
+    topGoods = new Button(ButtonStruct("Najlepiej sprzedające się towary"));
+    topGoods->setProperty("buttonName", "topGoods");
+    topContractors = new Button(ButtonStruct("Najwięksi klienci"));
+    topContractors->setProperty("buttonName", "topContractors");
 
     QString title;
     QList<QPushButton*> *buttonList;
@@ -40,8 +55,8 @@ void MainTabReportsItem::setInterface()
 
     title = "Niezapłacone dokumenty";
     buttonList  = new QList<QPushButton*>();
-    buttonList->push_back(unpaidSaleDocument);
-    buttonList->push_back(unpaidPurchaseDocument);
+    buttonList->push_back(unpaidSaleDocuments);
+    buttonList->push_back(unpaidPurchaseDocuments);
     addReportGroup(title, buttonList);
 
 
@@ -65,8 +80,8 @@ void MainTabReportsItem::setInterface()
 
     title = "Rankingi";
     buttonList  = new QList<QPushButton*>();
-    buttonList->push_back(bestSellerGoods);
-    buttonList->push_back(bestBuyers);
+    buttonList->push_back(topGoods);
+    buttonList->push_back(topContractors);
     addReportGroup(title, buttonList);
 
 
@@ -88,9 +103,18 @@ void MainTabReportsItem::addReportGroup(QString title, QList<QPushButton*> *butt
     int row = 1, col = 0;
     for(int i = 0; i < buttons->size(); i++)
     {
-        buttons->at(i)->setMinimumHeight(50);
-        buttons->at(i)->setMaximumHeight(50);
-        buttons->at(i)->setMinimumWidth(parent->width()/2 -50);
+        QPushButton* button = buttons->at(i);
+        button->setMinimumHeight(50);
+        button->setMaximumHeight(50);
+        button->setMinimumWidth(parent->width()/2 -50);
+        button->setMenu(stdButtonMenu());
+        button->menu()->setFixedWidth(parent->width()/2 -50);
+        QList<QAction*> menuActions = button->menu()->actions();
+        foreach(QAction* action, menuActions)
+            action->setProperty("buttonName", button->property("buttonName").toString());
+
+        connect(button->menu(), SIGNAL(triggered(QAction*)), controller, SLOT(menuActionClicked(QAction*)));
+
         if(i % 2 == 0) {
             row ++;
             col = 0;
@@ -104,19 +128,35 @@ void MainTabReportsItem::addReportGroup(QString title, QList<QPushButton*> *butt
     reportsLayout->addLayout(itemLayout);
 }
 
+QMenu* MainTabReportsItem::stdButtonMenu() {
+    QMenu *menu = new QMenu();
+    QAction *actionShow = new QAction(this);
+    actionShow->setText("Pokaż listę stworzonych raportów");
+    actionShow->setToolTip("Pokaż listę stworzonych raportów");
+    actionShow->setProperty("actionName", MainTabReportsItem::ACTION_MENU_SHOW);
+    menu->addAction(actionShow);
+
+    QAction *actionGenerate = new QAction(this);
+    actionGenerate->setText("Generuj nowy raport");
+    actionGenerate->setToolTip("Generuj nowy raport");
+    actionGenerate->setProperty("actionName", MainTabReportsItem::ACTION_MENU_GENERATE);
+    menu->addAction(actionGenerate);
+    return menu;
+}
+
 
 void MainTabReportsItem::setConnections()
 {
-    connect(currentInventory,SIGNAL(clicked()),controller,SLOT(dialogCurrentInvetory()));
-    connect(currentInventoryGroups,SIGNAL(clicked()),controller,SLOT(dialogCurrentInvetoryGroups()));
-    connect(unpaidSaleDocument, SIGNAL(clicked()), controller, SLOT(dialogUnpaidSaleDocuments()));
-    connect(unpaidPurchaseDocument, SIGNAL(clicked()), controller, SLOT(dialogUnpaidPurchaseDocuments()));
-    connect(unrealizedDocumentsZK, SIGNAL(clicked()), controller, SLOT(dialogUnrealizedDocumentsZK()));
-    connect(unrealizedDocumentsZD, SIGNAL(clicked()), controller, SLOT(dialogUnrealizedDocumentsZD()));
-    connect(missingGoods, SIGNAL(clicked()), controller, SLOT(dialogMissingGoods()));
-    connect(endingGoods, SIGNAL(clicked()), controller, SLOT(dialogEndingGoods()));
-    connect(orderedGoodsZK, SIGNAL(clicked()), controller, SLOT(dialogOrderedGoodsZK()));
-    connect(orderedGoodsZD, SIGNAL(clicked()), controller, SLOT(dialogOrderedGoodsZD()));
-    connect(bestSellerGoods, SIGNAL(clicked()), controller, SLOT(dialogTopGoods()));
-    connect(bestBuyers, SIGNAL(clicked()), controller, SLOT(dialogTopContractors()));
+    connect(currentInventory,SIGNAL(clicked()),controller,SLOT(generateCurrentInventory()));
+    connect(currentInventoryGroups,SIGNAL(clicked()),controller,SLOT(generateCurrentInventoryGroups()));
+    connect(unpaidSaleDocuments, SIGNAL(clicked()), controller, SLOT(generateUnpaidSaleDocuments()));
+    connect(unpaidPurchaseDocuments, SIGNAL(clicked()), controller, SLOT(generateUnpaidPurchaseDocuments()));
+    connect(unrealizedDocumentsZK, SIGNAL(clicked()), controller, SLOT(generateUnrealizedDocumentsZK()));
+    connect(unrealizedDocumentsZD, SIGNAL(clicked()), controller, SLOT(generateUnrealizedDocumentsZD()));
+    connect(missingGoods, SIGNAL(clicked()), controller, SLOT(generateMissingGoods()));
+    connect(endingGoods, SIGNAL(clicked()), controller, SLOT(generateEndingGoods()));
+    connect(orderedGoodsZK, SIGNAL(clicked()), controller, SLOT(generateOrderedGoodsZK()));
+    connect(orderedGoodsZD, SIGNAL(clicked()), controller, SLOT(generateOrderedGoodsZD()));
+    connect(topGoods, SIGNAL(clicked()), controller, SLOT(generateTopGoods()));
+    connect(topContractors, SIGNAL(clicked()), controller, SLOT(generateTopContractors()));
 }

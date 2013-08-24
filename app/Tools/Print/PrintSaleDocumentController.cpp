@@ -7,7 +7,6 @@ PrintSaleDocumentController::PrintSaleDocumentController(QString symbol) : Print
 
 void PrintSaleDocumentController::print(Invoice* document)
 {
-
     setSymbol(document->getSymbol());
     setType(document->getDocumentType());
     int viewSignal=0;

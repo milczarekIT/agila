@@ -1,6 +1,7 @@
 #ifndef INVENTORYDIALOGVIEW_H
 #define INVENTORYDIALOGVIEW_H
 
+#include <QHeaderView>
 #include "Database/TVModel.h"
 #include "Report/ReportDialogView.h"
 

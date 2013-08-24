@@ -22,7 +22,7 @@ public:
     void exec();
 
 public slots:
-    void printReport();
+    void saveReport();
 };
 
 #endif // UNREALIZEDORDERDIALOGCONTROLLER_H

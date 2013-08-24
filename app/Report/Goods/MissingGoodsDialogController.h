@@ -21,7 +21,7 @@ public:
     void exec();
 
 public slots:
-    void printReport();
+    void saveReport();
 };
 
 #endif // MISSINGGOODSDIALOGCONTROLLER_H

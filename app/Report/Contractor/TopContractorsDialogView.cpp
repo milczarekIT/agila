@@ -8,7 +8,7 @@ TopContractorsDialogView::TopContractorsDialogView(QWidget *parent, TopContracto
 
     this->addComponents();
 
-    connect(buttonBox, SIGNAL(accepted()), controller, SLOT(printReport()));
+    connect(buttonBox, SIGNAL(accepted()), controller, SLOT(saveReport()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     connect(spinBoxListLimit, SIGNAL(valueChanged(int)), controller, SLOT(setListLimitFilter(int)));
     connect(dateEditFrom, SIGNAL(dateChanged(QDate)), controller, SLOT(setDateFromFilter(QDate)));
@@ -21,6 +21,7 @@ void TopContractorsDialogView::addComponents()
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     tableView->setSelectionMode(QAbstractItemView::SingleSelection);
     tableView->setFocusPolicy(Qt::NoFocus);
+    tableView->verticalHeader()->setDefaultSectionSize(20);
 
     layout->setRowMinimumHeight(0, 20);
 

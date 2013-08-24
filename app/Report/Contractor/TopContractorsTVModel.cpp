@@ -63,6 +63,11 @@ QVariant TopContractorsTVModel::data(const QModelIndex & index, int role) const
     return displayer.display();
 }
 
+QVariant TopContractorsTVModel::data(int row, int column, int role) {
+    QModelIndex modelIndex = this->index(row, column);
+    return data(modelIndex, role);
+}
+
 void TopContractorsTVModel::setListLimitFilter(int limit)
 {
     this->limit = limit;

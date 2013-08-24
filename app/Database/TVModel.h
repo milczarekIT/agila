@@ -5,6 +5,7 @@
 #include <QVariant>
 #include "Database/Database.h"
 #include "Goods/Price.h"
+#include "Other/Application/ApplicationManager.h"
 
 /**
   * Model dla TableView
@@ -25,6 +26,8 @@ public:
     Qt::SortOrder getSortOrder();
     int getSortColumn();
     QVariant baseData(const QModelIndex & index, int role) const;
+
+    virtual QVariant data(int row, int column, int role = Qt::DisplayRole);
 };
 
 #endif // TVMODEL_H

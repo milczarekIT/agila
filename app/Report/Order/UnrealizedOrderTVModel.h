@@ -15,6 +15,8 @@ public:
     UnrealizedOrderTVModel(QString type);
     ~UnrealizedOrderTVModel();
 
+    QVariant data(int row, int column, int role);
+
     void getData();
     Price getValue();
 };

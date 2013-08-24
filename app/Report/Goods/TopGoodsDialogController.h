@@ -24,7 +24,7 @@ public:
     void exec();
 
 public slots:
-    void printReport();
+    void saveReport();
     void setListLimitFilter(int limit);
     void setDateFromFilter(QDate fromDate);
     void setDateToFilter(QDate toDate);

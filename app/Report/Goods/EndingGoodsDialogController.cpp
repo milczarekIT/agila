@@ -25,10 +25,11 @@ void EndingGoodsDialogController::exec()
     view->exec();
 }
 
-void EndingGoodsDialogController::printReport()
+void EndingGoodsDialogController::saveReport()
 {
-   qDebug() << "Tu wstawić drukowanie rapotu: EndingGoodsDialogController::printReport()";
-   view->accept();
+    ReportDataReader *reportDataReader = new ReportDataReader(view->getTableView());
+    doSaveReport(reportDataReader, view->windowTitle(),  Report::ENDING_GOODS);
+    view->accept();
 }
 
 void EndingGoodsDialogController::quantityChanged(double value)

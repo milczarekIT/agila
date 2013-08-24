@@ -8,6 +8,7 @@
 #include <QDialogButtonBox>
 #include <QLabel>
 #include <QLineEdit>
+#include <QHeaderView>
 #include "Database/TVModel.h"
 
 class ReportDialogView : public QDialog

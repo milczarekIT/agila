@@ -15,10 +15,8 @@ void MainWindow::initStartConf() {
     this->setMinimumWidth(1024);
     this->setWindowState(Qt::WindowMaximized);
     this->setStatusBar(statusBar = new QStatusBar());
-
     idleTimer = new QTimer(this);
     idleTimer->setInterval(800000000);
-
     initMainInterface();
     initConnections();
     setTabOrders();
@@ -27,8 +25,6 @@ void MainWindow::initStartConf() {
 
 void MainWindow::initMainInterface() {
     menu = new MainMenuController();
-
-    buttonLogout = new Button(ButtonStruct("Wyloguj", "Wyloguj aktualnego użytkownika", QSize(120,25)));
     mainLayout->addWidget(menu->getView(),1,0);
     if(ApplicationManager::getInstance()->containsModule(ModuleManager::Warehouses))
     {
@@ -40,9 +36,12 @@ void MainWindow::initMainInterface() {
     mainLayout->addWidget(centralElement = new QStackedWidget,3,0,1,5);
     mainLayout->addItem(verticalSpacer = new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Minimum),5,0,1,5);
     addTableViewsAsCentralElements();
-
     mainLayout->addWidget(loggedUser = new QLabel(),1,3);
-    mainLayout->addWidget(buttonLogout,1,4);
+
+    if(ApplicationManager::getInstance()->getLoggedUser() != NULL) {
+        buttonLogout = new Button(ButtonStruct("Wyloguj", "Wyloguj aktualnego użytkownika", QSize(120,25)));
+        mainLayout->addWidget(buttonLogout,1,4);
+    }
 }
 
 void MainWindow::addTableViewsAsCentralElements() {
@@ -96,7 +95,8 @@ void MainWindow::initConnections() {
         connect(tab->getSettings()->getView()->getTabMagazine()->getView(),SIGNAL(numberOfMagazinesChanged()),storeComboBox,SLOT(setDataIntoStoreComboBox()));
         connect(storeComboBox,SIGNAL(storeSwitched()),this,SLOT(refreshView()));
     }
-    connect(buttonLogout,SIGNAL(clicked()),this,SLOT(emitLogout()));
+    if(ApplicationManager::getInstance()->getLoggedUser() != NULL)
+        connect(buttonLogout,SIGNAL(clicked()),this,SLOT(emitLogout()));
     connect(idleTimer,SIGNAL(timeout()),this,SLOT(emitLogout()));
 }
 
@@ -156,7 +156,8 @@ void MainWindow::setTabOrders() {
     if(ApplicationManager::getInstance()->containsModule(ModuleManager::Warehouses))
         setTabOrder(storeComboBox,tab);
 
-    setTabOrder(tab,buttonLogout);
+    if(ApplicationManager::getInstance()->getLoggedUser() != NULL)
+        setTabOrder(tab,buttonLogout);
 }
 
 void MainWindow::initAutoRemovingOldBackups() {
@@ -173,7 +174,10 @@ void MainWindow::checkApplicationUpdates() {
 
 void MainWindow::setMainWindowUserInfo() {
     QString text = Style::getInstance()->getLogginUserInfo();
-    loggedUser->setText(text + "<b>"+ ApplicationManager::getInstance()->getLoggedUser().getName() + "</b></font>    " );
+    if(ApplicationManager::getInstance()->getLoggedUser() != NULL)
+        loggedUser->setText(text + "<b>"+ ApplicationManager::getInstance()->getLoggedUser()->getName() + "</b></font>    " );
+    else
+        loggedUser->setText("");
 }
 
 void MainWindow::closeEvent(QCloseEvent *event){

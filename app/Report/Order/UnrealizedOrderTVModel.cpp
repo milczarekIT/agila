@@ -54,3 +54,8 @@ QVariant UnrealizedOrderTVModel::data(const QModelIndex & index, int role) const
     UnrealizedOrderTVDisplayer displayer(index, role, this);
     return displayer.display();
 }
+
+QVariant UnrealizedOrderTVModel::data(int row, int column, int role) {
+    QModelIndex modelIndex = this->index(row, column);
+    return data(modelIndex, role);
+}

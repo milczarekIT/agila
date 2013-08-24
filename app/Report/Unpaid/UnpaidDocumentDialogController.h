@@ -24,7 +24,7 @@ public:
     void exec();
 
 public slots:
-    virtual void printReport() = 0;
+    virtual void saveReport() = 0;
     virtual void showOnlyNotPaidOnTime(bool checked) = 0;
 };
 

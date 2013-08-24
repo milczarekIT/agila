@@ -1,12 +1,14 @@
 #include "PrintPreviewDialog.h"
 
-PrintPreviewDialog::PrintPreviewDialog(QPrinter *drukarka)
+PrintPreviewDialog::PrintPreviewDialog(QPrinter *drukarka, QString windowTitle)
 {
     this->mainLayout= new QGridLayout();
     this->setLayout(mainLayout);
     this->print = new QPrintPreviewWidget(drukarka);
+    print->setWindowTitle(windowTitle);
     addComponents();
 }
+
 PrintPreviewDialog::~PrintPreviewDialog()
 {
     delete print;

@@ -34,7 +34,8 @@ void PurchaseInvoiceController::exec ()
 
     QString documentPlace = smodel->getDefualtDocumentPlace().getName();
     this->view->setLineDocumentPlace(documentPlace);
-    this->view->setLineIssueName(ApplicationManager::getInstance()->getLoggedUser().getName());
+    if(ApplicationManager::getInstance()->getLoggedUser() != NULL)
+        this->view->setLineIssueName(ApplicationManager::getInstance()->getLoggedUser()->getName());
 
     if (view->exec())
     {

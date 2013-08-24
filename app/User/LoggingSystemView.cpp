@@ -89,7 +89,7 @@ QLabel *LoggingSystemView::getInfoAboutUserAccess()
     return infoAboutUserAccess;
 }
 
-void LoggingSystemView::emitLoggingSignal(User u)
+void LoggingSystemView::emitLoggingSignal(User *u)
 {
     emit logged(u);
 }

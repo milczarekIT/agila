@@ -15,7 +15,7 @@ public:
     bool isLoginInDatabase(QString login);
 
     QVector<User> getUsers();
-    User getUser(QString login);
+    User *getUser(QString login);
     void addUser(User user, QString password);
     QString getPassword(QString login);
 

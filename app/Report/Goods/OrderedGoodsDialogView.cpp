@@ -8,7 +8,7 @@ OrderedGoodsDialogView::OrderedGoodsDialogView(QWidget *parent, OrderedGoodsDial
 
     this->addComponents();
 
-    connect(buttonBox, SIGNAL(accepted()), controller, SLOT(printReport()));
+    connect(buttonBox, SIGNAL(accepted()), controller, SLOT(saveReport()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
@@ -18,6 +18,7 @@ void OrderedGoodsDialogView::addComponents()
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     tableView->setSelectionMode(QAbstractItemView::SingleSelection);
     tableView->setFocusPolicy(Qt::NoFocus);
+    tableView->verticalHeader()->setDefaultSectionSize(20);
 
     layout->setRowMinimumHeight(0, 20);
     layout->addWidget(tableView, 0, 1, 1, 4);

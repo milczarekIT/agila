@@ -5,7 +5,6 @@ SQLException::SQLException(QString sourceMethod, QSqlQuery *query) : Exception(s
     logger = new Logger();
     logger->log("Method: " + sourceMethod);
     logger->log(query->lastError().databaseText());
-
 }
 
 SQLException::~SQLException() {

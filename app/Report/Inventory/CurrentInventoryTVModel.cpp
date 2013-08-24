@@ -62,6 +62,11 @@ QVariant CurrentInventoryTVModel::data(const QModelIndex & index, int role) cons
     return displayer.display();
 }
 
+QVariant CurrentInventoryTVModel::data(int row, int column, int role) {
+    QModelIndex modelIndex = this->index(row, column);
+    return data(modelIndex, role);
+}
+
 void CurrentInventoryTVModel::showWithZeroQuantityFilter() {
     zeroQuantityFilter = "";
 }

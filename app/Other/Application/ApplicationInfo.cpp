@@ -11,8 +11,8 @@ ApplicationInfo::~ApplicationInfo()
     delete settings;
 }
 
-const int ApplicationInfo::versionCode = 3;
-const QString ApplicationInfo::versionName = "1.1.0";
+const int ApplicationInfo::versionCode = 4;
+const QString ApplicationInfo::versionName = "1.2.0";
 
 
 int ApplicationInfo::getVersionCode()

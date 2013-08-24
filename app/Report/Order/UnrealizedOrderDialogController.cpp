@@ -30,10 +30,14 @@ void UnrealizedOrderDialogController::exec()
    view->exec();
 }
 
-void UnrealizedOrderDialogController::printReport()
+void UnrealizedOrderDialogController::saveReport()
 {
-   qDebug() << "Tu wstawić drukowanie rapotu: UnrealizedOrderDialogController::printReport()";
-   view->accept();
+    ReportDataReader *reportDataReader = new ReportDataReader(view->getTableView());
+    if(type == "ZK")
+        doSaveReport(reportDataReader, view->windowTitle(),  Report::UNREALIZED_ZK_ORDERS);
+    else
+        doSaveReport(reportDataReader, view->windowTitle(),  Report::UNREALIZED_ZD_ORDERS);
+    view->accept();
 }
 
 void UnrealizedOrderDialogController::restoreTableState() {

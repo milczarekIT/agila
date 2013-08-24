@@ -35,7 +35,7 @@ bool LoggingSystemController::exec()
             {
                 if(checkPassword(login,password))
                 {
-                    User u = service->getUser(login);
+                    User *u = service->getUser(login);
                     ApplicationManager::getInstance()->setLoggedUser(u);
                     view->emitLoggingSignal(u);
                     return true;
@@ -64,8 +64,7 @@ bool LoggingSystemController::checkPassword(QString login, QString password)
 
     QCryptographicHash* hash = new QCryptographicHash(QCryptographicHash::Md5);
     hash->addData(noHashedPassword);
-    hashedPassword = hash->result();        //QCryptographicHash::result() zwraca sumę w kodzie binarnym! Dlatego w następnej linijce jest konwersja
-    hashedPassword = hashedPassword.toHex();
+    hashedPassword = hash->result().toHex();
 
     delete hash;
 
@@ -82,8 +81,8 @@ void LoggingSystemController::checkUserAccess()
     }
     else
     {
-        User u = service->getUser(login);
-        if(u.getLogin().isEmpty())
+        User *u = service->getUser(login);
+        if(u == NULL || u->getLogin().isEmpty())
         {
             view->getInfoAboutUserAccess()
                     ->setText("<font color=\"brown\">Podany użytkownik nie istnieje <b>!!!</b></font>");
@@ -91,7 +90,7 @@ void LoggingSystemController::checkUserAccess()
         else
         {
             view->getInfoAboutUserAccess()
-                    ->setText("<font color=\"green\">" + u.getName() + "</font>");
+                    ->setText("<font color=\"green\">" + u->getName() + "</font>");
         }
     }
 }

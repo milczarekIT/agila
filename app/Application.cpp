@@ -21,11 +21,11 @@ int Application::initApplication(int argc, char *argv[]) {
         appInfo.initAppliactionPath(argv[0]);
         setAppInformation();
         Style::getInstance()->setApplicationStyle(this);
-        return checkLicenceAndRun();
+        return this->run();
     }
 }
 
-int Application::checkLicenceAndRun() {
+int Application::run() {
     try {
         login();
         return this->exec();
@@ -57,13 +57,13 @@ void Application::login() {
 
 void Application::logout() {
     delete mainWindow;
-    qDebug() << "Użytkownik wylogowany";
     login();
 }
 
 void Application::initMainWindow() {
     mainWindow = new MainWindow();
     mainWindow->setWindowIcon(QIcon(":/image-theme/logo.png"));
+    mainWindow->setIconSize(QSize(48, 48));
     mainWindow->setWindowTitle(ApplicationManager::getInstance()->getApplicationName());
     connect(mainWindow, SIGNAL(logout()), this, SLOT(logout()));
 }

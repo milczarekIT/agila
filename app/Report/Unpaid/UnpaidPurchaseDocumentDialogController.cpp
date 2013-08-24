@@ -17,9 +17,10 @@ UnpaidPurchaseDocumentDialogController::~UnpaidPurchaseDocumentDialogController(
     saveTableState();
 }
 
-void UnpaidPurchaseDocumentDialogController::printReport()
+void UnpaidPurchaseDocumentDialogController::saveReport()
 {
-    qDebug() << "Tu wstawić drukowanie rapotu: UnpaidPurchaseDocumentDialogController::printReport()";
+    ReportDataReader *reportDataReader = new ReportDataReader(view->getTableView());
+    doSaveReport(reportDataReader, view->windowTitle(),  Report::UNPAID_PURCHASE_DOCUMENTS);
     view->accept();
 }
 

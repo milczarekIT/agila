@@ -5,7 +5,6 @@ SettingsPanelView::SettingsPanelView(SettingsPanelController *controller,QWidget
         QWidget(parent)
 {
     this->controller = controller;
-
     setGraphicElements();
     setGraphicSettings();
     setInterfaceController();
@@ -18,14 +17,12 @@ void SettingsPanelView::setGraphicElements(QWidget *parent)
     tabOutlook = new SettingsOutlookController();
     tabUser = new SettingsUserController();
     tabConGroups = new SettingsContractorGroupsController();
-
     this->setLayout(mainLayout = new QGridLayout());
     createListWidget();
     this->setGeometry(QRect(10,10,980,600));
     mainLayout->addWidget(list,1,0,1,1);
     mainLayout->setColumnMinimumWidth(0,250);
     mainLayout->setRowMinimumHeight(0,40);
-
     createGoodsTabs();
     createDocumentsTabs();
     createStoreTabs();

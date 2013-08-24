@@ -13,7 +13,7 @@ class PrintPreviewDialog : public QDialog
     Q_OBJECT
 
 public:
-    PrintPreviewDialog(QPrinter* drukarka);
+    PrintPreviewDialog(QPrinter* drukarka, QString windowTitle = "");
     ~PrintPreviewDialog();
     QGridLayout*mainLayout;
     QPrintPreviewWidget* print;

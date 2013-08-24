@@ -8,8 +8,6 @@ class BlueBraces
 public:
     BlueBraces();
 
-    /** nr telefonu, pod którym można aktywować licencję - nr tel. Adriana Nowaka */
-    static const QString ACTIVATION_PHONE;
     static const QString MAIL;
 };
 

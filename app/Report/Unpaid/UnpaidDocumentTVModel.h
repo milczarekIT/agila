@@ -20,6 +20,8 @@ public:
     UnpaidDocumentTVModel();
     ~UnpaidDocumentTVModel();
 
+    QVariant data(int row, int column, int role);
+
     void getUnpaidSaleDocuments();
     Price getUnpaidSaleValue();
 

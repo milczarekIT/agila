@@ -36,10 +36,10 @@ public:
     QLabel *getInfoAboutUserAccess();
     void showWrongLogin();
     void showWrongPassword();
-    void emitLoggingSignal(User u);
+    void emitLoggingSignal(User *u);
 
 signals:
-    void logged(User u);
+    void logged(User *u);
 };
 
 #endif // LOGGINGSYSTEMVIEW_H

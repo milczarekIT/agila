@@ -24,7 +24,9 @@ QVariant CurrentInventoryTVDisplayer::display() const
     if(isTextAligmentRole())
     {
         if (isQuantityColumn() || isPriceColumn() || isTaxColumn())
-                return QVariant(Qt::AlignRight | Qt::AlignVCenter);
+            return QVariant(Qt::AlignRight | Qt::AlignVCenter);
+        else
+            return QVariant(Qt::AlignLeft | Qt::AlignVCenter);
     }
     return QVariant();
 }

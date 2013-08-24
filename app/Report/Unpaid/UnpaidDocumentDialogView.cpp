@@ -8,7 +8,7 @@ UnpaidDocumentDialogView::UnpaidDocumentDialogView(QWidget *parent, UnpaidDocume
 
     addComponents();
 
-    connect(buttonBox, SIGNAL(accepted()), controller, SLOT(printReport()));
+    connect(buttonBox, SIGNAL(accepted()), controller, SLOT(saveReport()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     connect(checkBoxOnlyNotPaidOnTime, SIGNAL(clicked(bool)), controller, SLOT(showOnlyNotPaidOnTime(bool)));
 }
@@ -41,6 +41,7 @@ void UnpaidDocumentDialogView::addComponents()
     tableView = new QTableView;
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    tableView->verticalHeader()->setDefaultSectionSize(20);
 
     labelValue = new QLabel("Wartość netto: ");
     labelValue->setAlignment(Qt::AlignRight);
@@ -55,7 +56,7 @@ void UnpaidDocumentDialogView::addComponents()
 
     buttonBox = new QDialogButtonBox(Qt::Horizontal, this);
     buttonBox->addButton("Anuluj", QDialogButtonBox::RejectRole);
-    buttonBox->addButton("Drukuj", QDialogButtonBox::AcceptRole);
+    buttonBox->addButton("Zapisz", QDialogButtonBox::AcceptRole);
     layout->addWidget(buttonBox, 3, 1, 1, 4, Qt::AlignRight);
 }
 

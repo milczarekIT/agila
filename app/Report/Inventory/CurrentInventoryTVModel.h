@@ -21,6 +21,8 @@ public:
     void getData();
     Price getValue();
 
+    QVariant data(int row, int column, int role = Qt::DisplayRole);
+
     void showWithZeroQuantityFilter();
     void dontShowWithZeroQuantityFilter();
 };

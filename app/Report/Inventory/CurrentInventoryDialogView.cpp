@@ -9,7 +9,7 @@ CurrentInventoryDialogView::CurrentInventoryDialogView(QWidget *parent, CurrentI
     addComponents();
 
     connect(checkBoxShowWithZeroQuantity, SIGNAL(clicked(bool)), controller, SLOT(showWithZeroQuantity(bool)));
-    connect(buttonBox, SIGNAL(accepted()), controller, SLOT(printReport()));
+    connect(buttonBox, SIGNAL(accepted()), controller, SLOT(saveReport()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
