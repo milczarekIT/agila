@@ -1,0 +1,1 @@
+Agila is brand of linux software for micro and small business. Project consist of 2 products: Agila Faktury (invoicing) and Agila S3 (invoicing, warehouse management, order management, reporting)
